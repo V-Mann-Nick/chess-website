@@ -1,0 +1,110 @@
+{% extends "layout.html" %}
+
+
+{% block css_imports %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chess_print.css') }}">
+{% endblock %}
+
+
+<!-- submenu points for "noteworthy games" is generated dynamically in routes.py. It creates a menu point -->
+<!-- for every pgn found in /static/game_viewer_pgns -->
+{% block game_navigation %}
+    <ul class="submenu">
+        {% for game in game_nav %}
+        <li class="menuItem">
+            <a  href="{{ url_for('game_viewer', game_name=game[0]) }}"
+                class="button navButton">{{ game[1] }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+
+<!-- is put into <main></main> -->
+{% block content %}
+    {% if pgn_parse_errors %}
+    <div id="pgnParseErros">
+        <h3>errors parsing pgn-file:</h3>
+        {% for error in pgn_parse_errors %}
+        <p class="errorText regularText">{{ error }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <div id="optionsAndPreview">
+        <form id="Options" action="" method="post" enctype="multipart/form-data" novalidate>
+            {{ form.hidden_tag() }}
+            <h3>selected file: <strong>{{ original_filename }}</strong></h3>
+            <div class="optionModule">
+                <p class="regularText"><strong>select the moves after which
+                    the board should be printed</strong></p>
+                {{ form.halfmoves }}
+            </div>
+            <div id="ColorSelector" class="optionModule">
+                <p class="regularText"><strong>Choose a dark/light color combination for the printed boards.
+                    Either choose a template or give your own colors in hex-format.</strong></p><br>
+                <div id="ColorOptions">
+                    <div id="ColorTemplates">
+                        {{ form.color.label }}
+                        {{ form.color }}
+                    </div>
+                    <div id="CustomColors">
+                        {{ form.color_custom_light.label }}
+                        {{ form.color_custom_light(size=5) }}
+                        {% for error in form.color_custom_light.errors %}
+                        <span class="errorText regularText">[{{ error }}]</span>
+                        {% endfor %}
+                        {{ form.color_custom_dark.label }}
+                        {{ form.color_custom_dark(size=5) }}
+                        {% for error in form.color_custom_dark.errors %}
+                        <span class="errorText regularText">[{{ error }}]</span>
+                        {% endfor %}
+                    </div> <!-- end CustomColors -->
+                </div> <!-- end ColorOptions -->
+            </div> <!-- end ColorSelector -->
+            <div id="PageSettings" class="optionModule">
+                <div id="page_margin">
+                    {{ form.page_margin.label }}<br>
+                    {{ form.page_margin(size=2) }}
+                    {% for error in form.page_margin.errors %}
+                    <span class="errorText regularText">[{{ error }}]</span>
+                    {% endfor %}
+                </div>
+                <div id="page_format">
+                    {{ form.page_format.label }}<br>
+                    {{ form.page_format }}
+                    {% for error in form.page_format.errors %}
+                    <span class="errorText regularText">[{{ error }}]</span>
+                    {% endfor %}
+                </div>
+                <div id="column_gap">
+                    {{ form.column_gap.label }}<br>
+                    {{ form.column_gap(size=2) }}
+                    {% for error in form.column_gap.errors %}
+                    <span class="errorText regularText">[{{ error }}]</span>
+                    {% endfor %}
+                </div>
+            </div> <!-- end PageSettings -->
+            <div id="FontSettings" class="optionModule">
+                <div id="font_size">
+                    {{ form.font_size.label }}<br>
+                    {{ form.font_size(size=2) }}
+                    {% for error in form.font_size.errors %}
+                    <span class="errorText regularText">[{{ error }}]</span>
+                    {% endfor %}
+                </div>
+                <div id="font_name">
+                    {{ form.font_name.label }}<br>
+                    {{ form.font_name }}
+                    {% for error in form.font_name.errors %}
+                    <span class="errorText regularText">[{{ error }}]</span>
+                    {% endfor %}
+                </div>
+            </div> <!-- end FontSettings -->
+            <div id="PrintToolButtons" class="optionModule">
+                {{ form.submit(class_="button") }}
+                <a href="{{ url_for('uploader', tool_target='pdf_printer', reset=True) }}" class="button">reset</a>
+            </div>
+        </form>
+        <iframe id="pdf_preview" src="data:application/pdf;base64,{{ pdf_output }}" type="application/pdf"></iframe>
+    </div>
+{% endblock %}

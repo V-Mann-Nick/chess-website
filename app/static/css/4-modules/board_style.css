@@ -1,0 +1,32 @@
+/*********************************************************/
+/*---------------------BOARD STYLES----------------------*/
+/*********************************************************/
+
+#GameBoard {
+    border-color: var(--color-3);
+    border-style: ridge;
+    border-width: 5px;
+}
+
+#boardTable {
+    height: 100% !important;
+    width: 100% !important;
+}
+
+.whiteSquare, .highlightWhiteSquare {
+    background-color: var(--color-4);
+}
+
+.blackSquare, .highlightBlackSquare {
+    background-color: var(--color-1);
+}
+
+.whiteSquare, .highlightWhiteSquare, .blackSquare, .highlightBlackSquare {
+    height: calc(100% / 8);
+    width: calc(100% / 8);
+}
+
+.pieceImage {
+    margin: 0 auto;
+    width: 100%;
+}

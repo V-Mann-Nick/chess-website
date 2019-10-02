@@ -1,0 +1,27 @@
+/*********************************************************/
+/*---------------------FOOTER----------------------------*/
+/*********************************************************/
+
+footer {
+    background-color: var(--color-4);
+    border-radius: 0 0 7px 7px;
+    padding: .3em;
+    text-align: center;
+}
+
+/* if PageBox takes the whole width remove round corners */
+@media only screen and (max-width: 1100px) {
+    footer {
+        border-radius: 0;
+    }
+}
+
+#LinkImpressum {
+    color: var(--color-0);
+    font-size: 1.1em;
+    margin: 4px;
+}
+
+#LinkImpressum a {
+    color: var(--color-0);
+}

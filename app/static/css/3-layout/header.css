@@ -1,0 +1,93 @@
+/*********************************************************/
+/*---------------------HEADER----------------------------*/
+/*********************************************************/
+
+header {
+    background-color: var(--color-0);
+    border-radius: 7px 7px 0 0;
+    padding: 2.2em 1.5em;
+    position: relative;
+    text-align: center;
+    transition: border-radius 300ms;
+    -webkit-transition: border-radius 300ms;
+}
+
+/* if PageBox takes the whole width remove round corners */
+@media only screen and (max-width: 1100px) {
+    header {
+        border-radius: 0;
+    }
+}
+
+/******************************************/
+/*----------BACKGROUND SELECTOR-----------*/
+/******************************************/
+
+#Settings {
+    left: 2%;
+    position: absolute;
+    top: 10%;
+}
+
+#BackgroundChoice {
+    background-color: var(--color-2);
+    border-radius: 7px;
+    left: 2%;
+    max-height: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 42%;
+    transition: max-height 300ms ease-in-out;
+    -webkit-transition: max-height 300ms ease-in;
+    z-index: 1;
+}
+
+#BackgroundChoice.visible {
+    max-height: 1000px;
+}
+
+/* If there's enough space on the left put the bg-selection window on the left */
+@media only screen and (min-width: 1410px) {
+
+    #BackgroundChoice {
+        left: -13%;
+    }
+}
+
+.bgChoice {
+    display: block;
+    max-width: 165px;
+    padding: 5px;
+    width: 15vw;
+}
+
+/**************************************************/
+/*-------------------HEADING----------------------*/
+/**************************************************/
+
+header h1 {
+    display: inline-block;
+    font-family: "Shadows";
+}
+
+header h3 {
+    font-family: "Shadows";
+}
+
+/******************************************/
+/*----------------ETC TEXT----------------*/
+/******************************************/
+
+#Etc:hover + #EtcText {
+    margin-top: 0.75em;
+    max-height: 100px;
+}
+
+#EtcText {
+    line-height: 2em;
+    margin: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 300ms ease-in-out;
+    -webkit-transition: all 300ms ease-in-out; /*Safari*/
+}

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="de" dir="ltr">
+<head>
+    <title>Springer am Rand ...</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Inhalte und Tools für Schachinteressierte">
+    <meta name="keywords" content="Chess, Schach, Karpov, Kasparov, Tal, Lasker,
+    Capablanca, Taktik, Strategie, PGN, pgn4web, color-thief">
+    <meta name="author" content="Timon Kunze, Nicklas Sedlock">
+    <meta name="robots" content="index, follow, noarchive">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon/favicon.ico') }}">
+
+    <!-- *****************STYLESHEET IMPORTS*******************  -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/1-2-3-foundation.css') }}">
+    {% block css_imports %}{% endblock %}
+    <!-- ****************************************************** -->
+
+    <!-- *****************JAVASCRIPT IMPORTS*******************  -->
+    <script src="{{ url_for('static', filename='js/pgn4web/pgn4web.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/configPieceImg.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/configGameViewer.js') }}"></script>
+    {% block js_imports %}{% endblock %}
+    <!-- **********COLOR-THIEF***************** -->
+    <script src="{{ url_for('static', filename='js/color_thief/color-thief.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/configColorPalette.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/backgroundSelector.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/uploadButton.js') }}"></script>
+    <!-- ****************************************************** -->
+    {% block set_pgn_url %}{% endblock %}
+</head>
+
+<!-- To confiure opacity of header, navigation and main change
+setupColorThief(null, headerOp, navFootOp, mainOp) -->
+<body onload="
+    setupEventListener();
+    if(checkCookie('background')){
+      changeMainBackground(Number(getCookie('background')));
+      setupColorThief(0, 0.9, 1, 0.5);
+    }
+    configOpacity(0.9,1,0.5);" >
+    <div id="PageBox">
+
+<!---------------------------------------------------------------------------------------->
+<!-- *******************************HEADER********************************************* -->
+<!---------------------------------------------------------------------------------------->
+
+        <header>
+            <button type="button" id="Settings"><i class="material-icons">collections</i></button>
+            <div id="BackgroundChoice">
+                <img    src="{{ url_for('static', filename='images/backgrounds/body_background_0.jpg')}}"
+                        alt="background_0"
+                        class="bgChoice"
+                        onclick="
+                            changeMainBackground(0);
+                            setupColorThief(0, 0.9, 1, 0.5);">
+                <img    src="{{ url_for('static', filename='images/backgrounds/body_background_1.jpg') }}"
+                        alt="background_1"
+                        class="bgChoice"
+                        onclick="
+                            changeMainBackground(1);
+                            setupColorThief(1, 0.9, 1, 0.5);">
+                <img    src="{{ url_for('static', filename='images/backgrounds/body_background_2.jpg') }}"
+                        alt="background_2"
+                        class="bgChoice"
+                        onclick="
+                            changeMainBackground(2);
+                            setupColorThief(2, 0.9, 1, 0.5);">
+                <img    src="{{ url_for('static', filename='images/backgrounds/body_background_3.jpg') }}"
+                        alt="background_3"
+                        class="bgChoice"
+                        onclick="
+                            changeMainBackground(3);
+                            setupColorThief(3, 0.9, 1, 0.5);">
+                <img    src="{{ url_for('static', filename='images/backgrounds/body_background_4.jpg') }}"
+                        alt="background_4"
+                        class="bgChoice"
+                        onclick="
+                            changeMainBackground(4);
+                            setupColorThief(4, 0.9, 1, 0.5);">
+            </div>
+            <h1>Springer am Rand</h1>
+            <h1 id="Etc">...</h1>
+            <h3 id="EtcText">bringt Kummer und Schand</h3>
+        </header>
+
+<!---------------------------------------------------------------------------------------->
+<!-- *******************************NAVIGATION***************************************** -->
+<!---------------------------------------------------------------------------------------->
+
+        <nav>
+            <ul id="MainMenu">
+                <li class="menuItem" id="HomeButton">
+                    <a href="{{ url_for('index') }}"
+                        class="button navButton"
+                        style="background-color: var(--color-1)">
+                        <i class="material-icons">home</i>
+                    </a>
+                </li>
+                <li class="menuItem">
+                    <a href="#" class="button navButton">noteworthy games</a>
+                    {% block game_navigation %}{% endblock %}
+                </li>
+                <li class="menuItem">
+                    <a href="{{ url_for('puzzles') }}" class="button navButton">tactic puzzles</a>
+                </li>
+                <li class="menuItem">
+                    <a href="" class="button navButton">tools</a>
+                    <ul class="submenu">
+                        <li class="menuItem">
+                            <a  href="{{ url_for('uploader', tool_target='pdf_printer', reset=False) }}"
+                                class="button navButton">pdf printer</a>
+                        </li>
+                        <li class="menuItem">
+                            <a  href="{{ url_for('uploader', tool_target='custom_game_viewer', reset=True) }}"
+                                class="button navButton">custom pgn</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+<!---------------------------------------------------------------------------------------->
+<!-- *********************************MAIN********************************************* -->
+<!---------------------------------------------------------------------------------------->
+        <main>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+            {% block content %}{% endblock %}
+        </main>
+
+
+<!---------------------------------------------------------------------------------------->
+<!-- *******************************FOOTER********************************************* -->
+<!---------------------------------------------------------------------------------------->
+
+        <footer>
+            <div id="LinkImpressum" class="regularText" >
+                <a  href="impressum.html"><strong>Impressum</strong></a>
+                und
+                <a href="privacy_statement.html"><strong>Datenschutzerkl&auml;rung</strong></a>
+            </div>
+        </footer>
+
+    </div> <!-- End PageBox -->
+</body>
+</html>

@@ -1,0 +1,126 @@
+@media only screen and (max-width: 480px) {
+    main {
+        align-items: center;
+        flex-direction: column;
+    }
+
+    break {
+        flex-basis: 0;
+    }
+
+        /*********************************************/
+        /*-------------GAME INFORMATION--------------*/
+        /*********************************************/
+
+    #GameInformation {
+        order: 0;
+    }
+
+        /*********************************************/
+        /*------------BOARD AND BUTTONS--------------*/
+        /*********************************************/
+
+    #BoardAndButtons {
+        order: 2;
+    }
+
+        /**************************************/
+        /*----------------BOARD---------------*/
+        /**************************************/
+
+    #GameBoard {
+        height: 90vw;
+        width: 90vw;
+    }
+
+        /*********************************************/
+        /*------------PLAYER PICTURES----------------*/
+        /*********************************************/
+
+    #PlayerPictures {
+        order: 1;
+        flex-direction: row-reverse;
+        justify-content: space-around;
+        width: 100%;
+    }
+
+    #Player2, #Player1 {
+        height: 100%;
+    }
+
+        /*********************************************/
+        /*-----------------GAME TEXT-----------------*/
+        /*********************************************/
+
+    #HilfscontainerLandscape {
+        order: 3;
+    }
+
+    #GameText {
+        order: 4;
+    }
+}
+
+/* smartphones in landscape */
+@media only screen
+and (max-height: 480px)
+and (orientation: landscape) {
+        /*********************************************/
+        /*-------------GAME INFORMATION--------------*/
+        /*********************************************/
+
+    #GameInformation {
+        order: 0;
+    }
+
+        /*********************************************/
+        /*------------BOARD AND BUTTONS--------------*/
+        /*********************************************/
+
+    #BoardAndButtons {
+        order: 2;
+    }
+
+        /**************************************/
+        /*----------------BOARD---------------*/
+        /**************************************/
+
+    #GameBoard {
+        height: 70vh;
+        width: 70vh;
+    }
+
+        /*********************************************/
+        /*------------PLAYER PICTURES----------------*/
+        /*********************************************/
+
+    #PlayerPictures {
+        order: 1;
+        flex-direction: row-reverse;
+        justify-content: space-around;
+        width: 100%;
+        height: 70vh;
+    }
+
+    #Player2, #Player1 {
+        height: 100%;
+    }
+
+        /*********************************************/
+        /*-----------------GAME TEXT-----------------*/
+        /*********************************************/
+
+    #HilfscontainerLandscape {
+        order: 3;
+        flex-basis: 40%;
+    }
+
+    #CurrentMove {
+        margin: 0
+    }
+
+    #GameText {
+        order: 4;
+        margin: 2vw auto;
+    }
+}

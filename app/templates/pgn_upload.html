@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block css_imports %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pgn_upload.css') }}">
+{% endblock %}
+{% block game_navigation %}
+    <ul class="submenu">
+        {% for game in game_nav %}
+        <li class="menuItem">
+            <a  href="{{ url_for('game_viewer', game_name=game[0]) }}"
+                class="button navButton">{{ game[1] }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+{% block content %}
+    <p id="Instruction" class="regularText">Instruction needed</p>
+    <form id="PgnUpload" action="" method="post" enctype="multipart/form-data" novalidate>
+        {{ form.hidden_tag() }}
+        {{ form.upload }}
+        <p id="submit">{{ form.submit(class_="button") }}</p>
+    </form>
+{% endblock %}

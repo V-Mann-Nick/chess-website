@@ -1,0 +1,24 @@
+/* for tablets */
+@media only screen and (max-width: 1024px) {
+    .bgChoice {
+        max-width: none;
+        width: 25vw;
+    }
+}
+
+/* for smartphones */
+@media only screen and (max-width: 480px) {
+    .bgChoice {
+        width: 50vw;
+    }
+}
+
+/* smartphones in landscape */
+@media only screen
+and (max-height: 480px)
+and (orientation: landscape) {
+    .bgChoice {
+        display: inline;
+        width: calc(80vw / 5);
+    }
+}

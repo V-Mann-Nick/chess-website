@@ -1,0 +1,36 @@
+/*********************************************************/
+/*---------------------FONTS-----------------------------*/
+/*********************************************************/
+
+@font-face {
+    font-family: "Shadows";
+    src: url("../../fonts/Shadows_Into_Light_Two/ShadowsIntoLightTwo-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Lato";
+    src: url("../../fonts/Lato/Lato-Regular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "Lato";
+    src: url("../../fonts/Lato/Lato-Italic.ttf") format("truetype");
+    font-style: italic;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "Lato";
+    src: url("../../fonts/Lato/Lato-Bold.ttf") format("truetype");
+    font-style: normal;
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "Lato";
+    src: url("../../fonts/Lato/Lato-BoldItalic.ttf") format("truetype");
+    font-style: italic;
+    font-weight: bold;
+}

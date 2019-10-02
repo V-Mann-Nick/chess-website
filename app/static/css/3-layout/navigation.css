@@ -1,0 +1,82 @@
+/*********************************************************/
+/*---------------------NAVIGATION------------------------*/
+/*********************************************************/
+
+nav {
+    background-color: var(--color-4);
+}
+
+
+/*******************************************/
+/*---------------MAIN MENU-----------------*/
+/*******************************************/
+
+#MainMenu {
+    display: flex;
+    flex-direction: row;
+}
+
+#HomeButton {
+    width: 10% !important;
+}
+
+/* HomeButton doesn't need a padding. */
+#HomeButton>.navButton {
+    height: 100%;
+    padding: 0;
+}
+
+/* only select menuItems which are direct child of MainMenu, so now submenu items */
+#MainMenu>.menuItem {
+    position: relative;
+    width: calc(90%/3); /* 10% for HomeButton 90% for the other 3 */
+}
+
+/* is mainly styled by .button (css/2-base/global.css) class. */
+.navButton {
+    border-radius: 6px;
+    text-decoration: none;
+    align-items: center;
+    display: flex;
+    /* .button defines a padding of 0.5em top and bottom, so that needs to be subtracted. */
+    height: calc(100% - 1em);
+    justify-content: center;
+}
+
+/* overwrite .button style */
+.navButton, .navButton:active, .navButton:hover {
+    border: none
+}
+
+/*******************************************/
+/*---------------SUB MENU------------------*/
+/*******************************************/
+
+.submenu {
+    -webkit-transition: max-height 200ms ease-in-out;
+    background-color: var(--color-4);
+    display: block;
+    left: 0;
+    max-height: 0;
+    overflow: hidden;
+    position: absolute;
+    transition: max-height 200ms ease-in-out;
+    width: 100%;
+    z-index: 1;
+}
+
+/* on hover over .menuItem which are children of #MainMenu change style of children of class .submenu */
+#MainMenu>.menuItem:hover > .submenu {
+    max-height: 500px;
+}
+
+/* change colors of submenu */
+.submenu, .submenu .navButton {
+    background-color: var(--color-1);
+    color: var(--color-4);
+}
+
+.submenu .navButton:hover {
+    background-color: var(--color-3);
+    color: var(--color-0);
+}

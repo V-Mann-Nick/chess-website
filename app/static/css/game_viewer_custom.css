@@ -1,0 +1,7 @@
+@import "4-modules/board_buttons.css";
+@import "4-modules/board_style.css";
+@import "4-modules/download_pgn.css";
+@import "4-modules/game_text.css";
+@import "5-specifics/game_viewer.css";
+@import "5-specifics/game_viewer_mobile.css";
+@import "5-specifics/game_viewer_custom.css";

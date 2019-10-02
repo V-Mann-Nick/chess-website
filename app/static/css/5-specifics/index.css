@@ -1,0 +1,14 @@
+/*********************************************************/
+/*----THIS DOCUMENT CONTAINS STYLES FOR index.html-------*/
+/*********************************************************/
+
+#teaser {
+    padding: 3.5vw;
+    font-size: 2em;
+    text-align: center;
+    line-height: 1.5;
+}
+
+p {
+    margin: 0.9em 0;
+}

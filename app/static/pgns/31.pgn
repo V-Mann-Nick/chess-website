@@ -1,0 +1,36 @@
+[Event "Simul"]
+[Date "1972.??.??"]
+[Site "Manhattan Chess Club"]
+[White "Reshevsky"]
+[Black "Schiller, Eric"]
+[WhiteElo "0"]
+[BlackElo "0"]
+[Result "0-1"]
+[Round "?"]
+[ECO "D25"]
+[Annotator "Schiller Eric"]
+[Source ""]
+[Remark ""]
+
+1.d4 d5 2.c4 dxc4 3.Nf3 Nf6 4.e3 g6 5.Bxc4 Bg7 6.O-O O-O 7.Nc3
+Nfd7 { <*> Smyslov's system.} 8.Qe2 ( 8.e4 Nb6 9.Be2 Bg4 10.Be3 Nc6
+{was played in Evans - Smyslov, Helsinki Olympiad 1952, which was a game I had
+studied in preparation for this contest. Black has a lot of pressure on the center. Play continued}
+11.d5 Bxf3 12.Bxf3 Ne5 13.Be2 Nec4 { <*> with pressure on the long diagonal. After 14.Bc1 c6! Black had a strong game.}
+) Nb6 9.Bb3 Nc6 {!?} { <*> An attempt to improve on Golombek - Smyslov, Budapest 1952, which saw 9...a5.}
+10.Rd1 Bg4 11.h3 Bxf3 12.Qxf3 Qe8 { <*> This move has the goal of blasting open the center. After the king moves to the h-file Black can advance both e- and f-pawns.}
+13.Nb5 {?!} {
+Gligoric improved against me a week or two later with 13. Ne4!, with the threat
+of Nc5. Serves me right for getting the game published in the New York Times!}
+Rc8 14.Bd2 a6 15.Na3 Kh8 16.Rac1 e5 $1 17.d5 e4 18.Qf4 {
+It is clear that the Nc6 is headed for e5, with the possibility of jumping into
+f3. If only the g-file were open and a rook stood on g8...} g5
+$1 19.Qxg5 Ne5 20.Bc3 {The pin looks strong - but checks have been known to break pins!}
+Nf3+ {!!} 21.gxf3 Bxc3 22.Kh1 ( 22.bxc3 Rg8 ) Rg8 23.Qf4 Qd7
+24.Qh4 Qf5 $1 { Black continues to make threats while improving the position of his queen, before capturing the pawn at b2.}
+25.f4 Bxb2 26.Rg1 Bxc1 27.Rxc1 Qg6 { <*> Desperately chasing checkmate.}
+28.Qg4 Qxg4 29.hxg4 Rxg4 {White could have resigned here.} 30.Rg1
+Rxg1+ 31.Kxg1 Rd8 32.d6 Rxd6 33.Bxf7 Rd3 34.Nc2 c5 35.Be6 Rc3
+36.Ne1 Rc1 37.Kf1 Nc4 38.Ke2 b5 39.Bd5 Ra1 40.Bxe4 Rxa2+ 41.Kd1
+Rxf2 42.Nd3 Rd2+ {Reshevsky finally resigned, since I'm going to sac the rook for the knight and grab the e-pawn, with a three pawn advantage.}
+ 0-1

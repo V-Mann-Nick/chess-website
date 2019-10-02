@@ -1,0 +1,59 @@
+/*********************************************************/
+/*---------------GAME VIEWER CUSTOM----------------------*/
+/*********************************************************/
+
+/*********************************************/
+/*-------------UPLOAD FORM-------------------*/
+/*********************************************/
+
+#UploadForm {
+    margin: 0 auto;
+    max-height: 1000px;
+    overflow: hidden;
+    transition: max-height 500ms ease-in-out;
+    width: 60%;
+}
+
+#UploadForm.hidden {
+    max-height: 0;
+}
+
+#PgnInput {
+    background-color: var(--color-0);
+    height: 50vh;
+    width: 100%;
+}
+
+/*********************************************/
+/*----------------NEW GAME-------------------*/
+/*********************************************/
+
+#NewGame {
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+}
+
+#NewGame.visible {
+    opacity: 1;
+}
+
+/*********************************************/
+/*------------------GAME BOX-----------------*/
+/*********************************************/
+
+/* This page also loads the game_game_viewer_custom and -_mobile css */
+
+#Game {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 300ms ease-in-out;
+}
+
+#Game.visible {
+    max-height: 3000px;
+}

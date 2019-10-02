@@ -1,0 +1,19 @@
+/* This file needs to be loaded after navigation.css */
+
+@media only screen and (max-width: 480px) {
+    #MainMenu {
+        flex-direction: column;
+
+    }
+    .menuItem, #HomeButton {
+        width: 100% !important;
+    }
+
+    #MainMenu>.menuItem:hover > .submenu {
+        display: block;
+    }
+
+    .navButton {
+        height: auto;
+    }
+}

@@ -1,0 +1,22 @@
+[Event "Botvinnik - Tal World Championship Match"]
+[Site "Moscow URS"]
+[Date "26.03.1960"]
+[EventDate "?"]
+[Round "6"]
+[Result "0-1"]
+[White "Mikhail Botvinnik"]
+[Black "Mikhail Tal"]
+[ECO "E69"]
+[WhiteElo "?"]
+[BlackElo "?"]
+[PlyCount "93"]
+
+1.c4 {Botvinnik mit Weiß beginnt mit seiner liebsten Eröffnung.} Nf6 2.Nf3 g6 3.g3 Bg7 4.Bg2 O-O 5.d4 d6 {Weiß hat die Initiative auf der Damenseite, aber für Schwarz besteht die Möglichkeit des Gegenschlags auf der Königseite. } 6.Nc3 Nbd7 7.O-O
+e5 8.e4 c6 9.h3 {Bisher hat Weiß versucht, seine Figuren harmonisch im Zentrum zu platzieren. Damit beansprucht er das Zentrum und erschafft sich zusätzlichen Platz. Man möchte ihm einen Eröffnugnsvorteil zusprechen.  Mit h3 verhindert er nun den Springerzug auf g6.} Qb6 {Schwarz zielt direkt auf d4.} 10.d5 cxd5 {Weiß findet hier einen schönen Außenposten für seinen Springer und kann mit seinem Aufbauspiel zufrieden sein.} 11.cxd5 Nc5 12.Ne1 {Der Zug ist überraschend. Der Springer soll die Seite wechseln. Im nächsten Zug folgt dazu die Fortsetzung.} Bd7 13.Nd3
+Nxd3 14.Qxd3 Rfc8 15.Rb1 {Weiß versucht, seinen Bauern zu verteidigen und den Läufer frei zu bekommen.} Nh5 {Mit diesem Zug läutet Schwarz seinen Angriff auf der Königsseite ein. Man beachte, dass Tals Springer am Rand steht. Im fortgesetzten Spiel wird er ausnahmsweise weder Kummer noch Schand bringen.} 16.Be3 Qb4 17.Qe2 Rc4 {macht Druck auf e4 und bereitet eine Turmdoppelung vor.} 18.Rfc1
+Rac8 19.Kh2 {Botvinnik scheint sich noch keiner Gefahr bewusst zu sein und verbessert seine Position weiter.} f5 20.exf5 Bxf5 21.Ra1 {Schwarz verliert ein Tempo, weil der Turm angegriffen wird. Alle Augen richten sich aber auf die Bauerngabel, die sich auf g4 anbietet. Schwarz muss darauf reagieren, sonst hat er verloren.} Nf4 {Dieser Zug ist einer der ungewöhnlichsten in der Schachgeschichte. Tal opfert seinen Springer.} 22.gxf4 {Schwarz muss den Springer schlagen.} exf4 23.Bd2
+Qxb2 24.Rab1 f3 {Das ist Tals zweiter überraschender Zug. Mit der Dame kann Schwarz nicht zurückschlagen. Wenn der Läufer zurückschluge, würde darauf} (24... f3 25.Bxf3 Bxb1 26.Rxb1 Qc2 27.Rc1 Qb2 28.Rc1 Qb2) {folgen. Das wäre vielleicht ein Unentschieden durch Zugwiederholung. Aber wer weiß, ob Botvinnik dies gesehen hatte.} 25.Rxb2 fxe2 {Der Turmzug war wahrscheinlich der Botvinniks größter Fehler. Der Bauer auf der 2. Linie macht von jetzt an große Probleme.} 26.Rb3 Rd4 27.Be1 Be5+ 28.Kg1 Bf4 {Botvinnik sieht, dass er den Turm nicht wegsetzen kann, sonst hängt sein Springer.}
+29.Nxe2  Rxc1 30.Nxd4 Rxe1+ 31.Bf1 Be4 32.Ne2 Be5 {Jetzt besitzt Tal einen Bauern mehr, beide Läufer und eine dominierende Stellung.} 33.f4 Bf6
+34.Rxb7 Bxd5 35.Rc7 Bxa2 36.Rxa7 Bc4 37.Ra8+ Kf7 38.Ra7+ Ke6
+39.Ra3 d5 {Nun ist es nicht mehr möglich, den Bauern zu stoppen.} 40.Kf2 Bh4+ 41.Kg2 Kd6 42.Ng3 Bxg3 43.Bxc4 dxc4
+44.Kxg3 Kd5 45.Ra7 c3 46.Rc7 Kd4 {Hier wurde das Spiel bis zum nächsten Tag unterbrochen. In der Analyse erkannten beide Spieler, dass das Spiel für Tal gewonnen war.} 47.Rd7+ {Botvinnik hat aufgegeben.} 0-1
