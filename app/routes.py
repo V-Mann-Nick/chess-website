@@ -19,6 +19,7 @@ SAVED_PGNS_PATH = 'app/static/pgns/'
 PGNS_PATH = 'app/static/game_viewer_pgns/'
 
 
+# it returns a list of value/label pairs for every pgn_file in static/game_viewer_pgns/
 def generate_game_nav():
     nav_elems = list()
     for game in os.listdir(PGNS_PATH):
@@ -32,12 +33,11 @@ def unique_filename():
     global file_it
     if 'file_it' not in globals():
         file_it = 0
-    filename = os.path.join(SAVED_PGNS_PATH, f'{file_it}.pgn')
-    while os.path.exists(filename):
+    filename = f'{file_it}.pgn'
+    while os.path.exists(os.path.join(SAVED_PGNS_PATH, filename)):
         file_it += 1
-        filename = os.path.join(SAVED_PGNS_PATH, f'{file_it}.pgn')
+        filename = f'{file_it}.pgn'
     return filename
-
 
 
 
@@ -81,7 +81,7 @@ def uploader(tool_target, reset):
         f = form.upload.data
         session[filename_key] = unique_filename()
         session[original_filename_key] = secure_filename(f.filename)
-        f.save(session[filename_key])
+        f.save(os.path.join(SAVED_PGNS_PATH, session[filename_key]))
         return redirect(url_for('chess_print_ui' if tool_target == 'pdf_printer' else 'custom_game_viewer'))
     return render_template('pgn_upload.html',
                            game_nav=generate_game_nav(),
@@ -92,7 +92,7 @@ def uploader(tool_target, reset):
 def chess_print_ui():
     form = Options()
     if form.validate_on_submit():
-        printer = GamePrinter(session['pp_filename'],
+        printer = GamePrinter(os.path.join(SAVED_PGNS_PATH, session['pp_filename']),
                               halfmoves_to_be_printed=form.halfmoves.data,
                               page_format=form.page_format.data,
                               font_name=form.font_name.data)
@@ -112,7 +112,7 @@ def chess_print_ui():
         pdf = printer.create_and_return_document().getvalue()
         form.halfmoves.choices = [(i, move.san()) for i, move in enumerate(printer.game.mainline())]
     else:
-        printer = GamePrinter(session['pp_filename'])
+        printer = GamePrinter(os.path.join(SAVED_PGNS_PATH, session['pp_filename']))
         pdf = printer.create_and_return_document().getvalue()
         form.halfmoves.choices = [(i, move.san()) for i, move in enumerate(printer.game.mainline())]
     return render_template('chess_print.html',
@@ -125,9 +125,8 @@ def chess_print_ui():
 
 @app.route('/tools/custom_pgn_viewer')
 def custom_game_viewer():
-    player_image_urls = get_player_picture_urls(session['cgv_filename'])
+    player_image_urls = get_player_picture_urls(os.path.join(SAVED_PGNS_PATH, session['cgv_filename']))
     return render_template('game_viewer.html',
-                           game_path=session['cgv_filename'][3:],
+                           game_path=os.path.join(SAVED_PGNS_PATH[3:], session['cgv_filename']),  # for html-files '/' is '/app'
                            game_nav=generate_game_nav(),
                            player_image_urls=player_image_urls)
-
