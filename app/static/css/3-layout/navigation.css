@@ -71,12 +71,33 @@ nav {
 }
 
 /* change colors of submenu */
-.submenu, .submenu .navButton {
+.submenu, .submenu .navButton, .subsubmenu, .subsubmenu .navButton {
     background-color: var(--color-1);
     color: var(--color-4);
 }
 
-.submenu .navButton:hover {
+.submenu .navButton:hover, .subsubmenu .navButton:hover {
     background-color: var(--color-3);
     color: var(--color-0);
 }
+
+/*******************************************/
+/*-----------SUB SUB MENU------------------*/
+/*******************************************/
+
+.subsubmenu {
+    position: absolute;
+    width: 75%;
+    left: 100%;
+    top: 0;
+    display: none;
+}
+
+.submenu:hover {
+    overflow: visible;
+}
+
+.submenu>.menuItem:hover > .subsubmenu {
+    display: block;
+}
+

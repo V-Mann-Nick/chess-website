@@ -6,7 +6,7 @@ import os
 from io import StringIO, BytesIO
 import chess
 import chess.pgn
-from reportlab.platypus import Table, Image, Frame, BaseDocTemplate, Paragraph, PageTemplate, SimpleDocTemplate
+from reportlab.platypus import Table, Image, Frame, BaseDocTemplate, Paragraph, PageTemplate
 from reportlab.lib.units import cm
 from reportlab.lib.pagesizes import A4, letter
 from reportlab.lib import colors
@@ -166,13 +166,18 @@ class GamePrinter:
                 text += '</i>)'
         return text
 
-    def create_and_return_document(self):
+    def build_and_return_document(self):
         self.init_reportlab(save_to_file=False)
-        self.create_document()
+        self.build_document()
         return self.buff
 
+    def build_and_save_document(self, path=None):
+        if path:
+            self.output_path = path
+        self.init_reportlab(save_to_file=True)
+        self.build_document()
 
-    def create_document(self):
+    def build_document(self):
         # elements will contain flowables for the build function
         elements = []
         # Paragraph for Heading and meta information
@@ -221,7 +226,7 @@ def run(args):
                           space_before=args.spaceBefore,
                           space_after=args.spaceAfter,
                           col_gap=args.columnGap)
-    printer.create_document()
+    printer.build_document()
 
 
 def main():

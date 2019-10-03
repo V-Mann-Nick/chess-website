@@ -6,14 +6,27 @@
 {% endblock %}
 
 
+{% block js_imports %}
+    <script src="{{ url_for('static', filename='js/download.js') }}"></script>
+{% endblock %}
+
+
 <!-- submenu points for "noteworthy games" is generated dynamically in routes.py. It creates a menu point -->
 <!-- for every pgn found in /static/game_viewer_pgns -->
 {% block game_navigation %}
     <ul class="submenu">
-        {% for game in game_nav %}
+        {% for folder in game_nav %}
         <li class="menuItem">
-            <a  href="{{ url_for('game_viewer', game_name=game[0]) }}"
-                class="button navButton">{{ game[1] }}</a>
+            <a  href=""
+                class="button navButton">{{ folder[0] }}</a>
+            <ul class="subsubmenu">
+                {% for game in folder[1] %}
+                <li class="menuItem">
+                    <a class="button navButton"
+                       href="{{ url_for('game_viewer', folder=folder[0], game_name=game[0]) }}">{{ game[1] }}</a>
+                </li>
+                {% endfor %}
+            </ul>
         </li>
         {% endfor %}
     </ul>
@@ -44,40 +57,44 @@
                     Either choose a template or give your own colors in hex-format.</strong></p><br>
                 <div id="ColorOptions">
                     <div id="ColorTemplates">
-                        {{ form.color.label }}
+                        {{ form.color.label(class_='regularText') }}
                         {{ form.color }}
                     </div>
                     <div id="CustomColors">
-                        {{ form.color_custom_light.label }}
-                        {{ form.color_custom_light(size=5) }}
-                        {% for error in form.color_custom_light.errors %}
-                        <span class="errorText regularText">[{{ error }}]</span>
-                        {% endfor %}
-                        {{ form.color_custom_dark.label }}
-                        {{ form.color_custom_dark(size=5) }}
-                        {% for error in form.color_custom_dark.errors %}
-                        <span class="errorText regularText">[{{ error }}]</span>
-                        {% endfor %}
+                        <div class="customColor">
+                            {{ form.color_custom_light.label(class_='regularText') }}
+                            {{ form.color_custom_light(size=5) }}
+                            {% for error in form.color_custom_light.errors %}
+                            <span class="errorText regularText">[{{ error }}]</span>
+                            {% endfor %}
+                        </div>
+                        <div class="customColor">
+                            {{ form.color_custom_dark.label(class_='regularText') }}
+                            {{ form.color_custom_dark(size=5) }}
+                            {% for error in form.color_custom_dark.errors %}
+                            <span class="errorText regularText">[{{ error }}]</span>
+                            {% endfor %}
+                        </div>
                     </div> <!-- end CustomColors -->
                 </div> <!-- end ColorOptions -->
             </div> <!-- end ColorSelector -->
             <div id="PageSettings" class="optionModule">
-                <div id="page_margin">
-                    {{ form.page_margin.label }}<br>
+                <div id="page_margin" class="optionField">
+                    {{ form.page_margin.label(class_='regularText') }}<br>
                     {{ form.page_margin(size=2) }}
                     {% for error in form.page_margin.errors %}
                     <span class="errorText regularText">[{{ error }}]</span>
                     {% endfor %}
                 </div>
-                <div id="page_format">
-                    {{ form.page_format.label }}<br>
+                <div id="page_format" class="optionField">
+                    {{ form.page_format.label(class_='regularText') }}<br>
                     {{ form.page_format }}
                     {% for error in form.page_format.errors %}
                     <span class="errorText regularText">[{{ error }}]</span>
                     {% endfor %}
                 </div>
-                <div id="column_gap">
-                    {{ form.column_gap.label }}<br>
+                <div id="column_gap" class="optionField">
+                    {{ form.column_gap.label(class_='regularText') }}<br>
                     {{ form.column_gap(size=2) }}
                     {% for error in form.column_gap.errors %}
                     <span class="errorText regularText">[{{ error }}]</span>
@@ -85,15 +102,15 @@
                 </div>
             </div> <!-- end PageSettings -->
             <div id="FontSettings" class="optionModule">
-                <div id="font_size">
-                    {{ form.font_size.label }}<br>
+                <div id="font_size" class="optionField">
+                    {{ form.font_size.label(class_='regularText') }}<br>
                     {{ form.font_size(size=2) }}
                     {% for error in form.font_size.errors %}
                     <span class="errorText regularText">[{{ error }}]</span>
                     {% endfor %}
                 </div>
-                <div id="font_name">
-                    {{ form.font_name.label }}<br>
+                <div id="font_name" class="optionField">
+                    {{ form.font_name.label(class_='regularText') }}<br>
                     {{ form.font_name }}
                     {% for error in form.font_name.errors %}
                     <span class="errorText regularText">[{{ error }}]</span>
@@ -103,6 +120,10 @@
             <div id="PrintToolButtons" class="optionModule">
                 {{ form.submit(class_="button") }}
                 <a href="{{ url_for('uploader', tool_target='pdf_printer', reset=True) }}" class="button">reset</a>
+                <button type="button"
+                        onClick="download('data:application/pdf;base64,{{ pdf_output }}', '{{ pdf_filename }}', 'application/pdf')">
+                    save
+                </button>
             </div>
         </form>
         <iframe id="pdf_preview" src="data:application/pdf;base64,{{ pdf_output }}" type="application/pdf"></iframe>

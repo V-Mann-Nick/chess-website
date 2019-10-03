@@ -24,10 +24,18 @@
 <!-- for every pgn found in /static/game_viewer_pgns -->
 {% block game_navigation %}
     <ul class="submenu">
-        {% for game in game_nav %}
+        {% for folder in game_nav %}
         <li class="menuItem">
-            <a  href="{{ url_for('game_viewer', game_name=game[0]) }}"
-                class="button navButton">{{ game[1] }}</a>
+            <a  href=""
+                class="button navButton">{{ folder[0] }}</a>
+            <ul class="subsubmenu">
+                {% for game in folder[1] %}
+                <li class="menuItem">
+                    <a class="button navButton"
+                       href="{{ url_for('game_viewer', folder=folder[0], game_name=game[0]) }}">{{ game[1] }}</a>
+                </li>
+                {% endfor %}
+            </ul>
         </li>
         {% endfor %}
     </ul>

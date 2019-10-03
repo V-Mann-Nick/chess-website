@@ -48,7 +48,7 @@ class Options(FlaskForm):
     # (light_tile_color, dark_tile_color)
     color_pairs = [('#DCD7BC', '#7C7671'),
                    ('#C4BBAF', '#5C4742'),
-                   ('#FFFFFF', '#28190E')]
+                   ('#decdc3', '#7c4222')]
     color_choices = [(f'{pair[0]}/{pair[1]}',
                       f'<div class="colorPair">\
                             <div class="colorBox" style="background-color: {pair[0]}"></div>\

@@ -11,7 +11,6 @@ reportlab = "*"
 argparse = "*"
 flask = "*"
 flask-wtf = "*"
-flask-sqlalchemy = "*"
 requests = "*"
 
 [requires]

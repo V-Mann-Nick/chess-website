@@ -51,6 +51,11 @@ p {
     padding-left: 40px;
 }
 
+.errorText {
+    color: red;
+    font-size: 1vw;
+}
+
 p a {
     color: var(--color-2);
 }
@@ -130,6 +135,10 @@ exceded font-size will stop getting biger */
     .regularText {
         font-size: 19.25px;
     }
+
+    .errorText {
+        font-size: 11px;
+    }
 }
 
 /* limit font-sizes from getting to small */
@@ -158,4 +167,7 @@ exceded font-size will stop getting biger */
         font-size: 13.125px;
     }
 
+    .errorText {
+        font-size: 7.5px;
+    }
 }

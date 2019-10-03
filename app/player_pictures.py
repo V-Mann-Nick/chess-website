@@ -10,9 +10,13 @@ def get_wikipicture_url(name):
               'prop': 'pageimages',
               'piprop': 'original',
               'titles': name}
-    response = requests.get(url=url, params=params)
-    if response.status_code >= 400:
-        print(f'Getting image for player {name} resulted in {response.status_code}')
+    try:
+        response = requests.get(url=url, params=params, timeout=5)
+        if response.status_code >= 400:
+            print(f'Getting image for player {name} resulted in {response.status_code}')
+            return image_missing_url
+    except:
+        print(f"Connection to {url} failed.")
         return image_missing_url
     name_parts = name.split(' ')
     try:

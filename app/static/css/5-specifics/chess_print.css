@@ -42,10 +42,6 @@
 /*     white-space: pre; */
 /* } */
 
-.errorText {
-    color: red;
-}
-
 #ColorOptions {
     display: flex;
     flex-direction: row;
@@ -61,6 +57,11 @@
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+}
+
+.customColor {
+    display: flex;
+    flex-direction: column;
 }
 
 #PageSettings {
@@ -103,4 +104,9 @@
 
 .colorPair {
     display: flex;
+}
+
+.optionField {
+    display: flex;
+    flex-direction: column;
 }

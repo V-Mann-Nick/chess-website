@@ -36,8 +36,10 @@ setupColorThief(null, headerOp, navFootOp, mainOp) -->
     setupEventListener();
     if(checkCookie('background')){
       changeMainBackground(Number(getCookie('background')));
-      setupColorThief(0, 0.9, 1, 0.5);
-    }">
+    } else {
+      changeMainBackground(1);
+    }
+    setupColorThief(0, 0.9, 1, 0.5);">
     <div id="PageBox">
 
 <!---------------------------------------------------------------------------------------->
@@ -142,7 +144,7 @@ setupColorThief(null, headerOp, navFootOp, mainOp) -->
 
         <footer>
             <div id="LinkImpressum" class="regularText" >
-                <a  href="impressum.html"><strong>Impressum</strong></a>
+                <a  href="{{ url_for('impressum') }}"><strong>Impressum</strong></a>
                 und
                 <a href="privacy_statement.html"><strong>Datenschutzerkl&auml;rung</strong></a>
             </div>

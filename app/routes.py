@@ -8,10 +8,11 @@ import os
 from base64 import b64encode
 
 # TODO
-# - Finish and save for chess-print
 # - implement space before and after?
-# - make website-style carry
 # - change page-title
+# - timeout for pictures
+# - css navigation!!
+# - revise background-images
 # - think about error handling
 # - more comments
 
@@ -19,16 +20,22 @@ SAVED_PGNS_PATH = 'app/static/pgns/'
 PGNS_PATH = 'app/static/game_viewer_pgns/'
 
 
-# it returns a list of value/label pairs for every pgn_file in static/game_viewer_pgns/
+# notworthy games will be automatically generated depending on the contents of PGNS_PATH
+# Searches PGNS_PATH and creates following structure:
+# [(folder1, [(file1_name, file1_label), ...]), (folder2, [(file1_name, file1_label), ...])]
 def generate_game_nav():
-    nav_elems = list()
-    for game in os.listdir(PGNS_PATH):
-        game = game[:game.find('.pgn')]
-        parts = game.split('_')
-        nav_elems.append((game, '-'.join([part.capitalize() for part in parts])))
-    return nav_elems
+    nav_dirs = list()
+    for folder in os.listdir(PGNS_PATH):
+        folder_elems = list()
+        for game in os.listdir(os.path.join(PGNS_PATH, folder)):
+            game = game[:game.find('.pgn')]
+            parts = game.split('_')
+            folder_elems.append((game, '-'.join([part.capitalize() for part in parts])))
+        nav_dirs.append((folder, folder_elems))
+    return nav_dirs
 
 
+# Generates a unique filename for the uploaded pgns
 def unique_filename():
     global file_it
     if 'file_it' not in globals():
@@ -40,26 +47,24 @@ def unique_filename():
     return filename
 
 
-
 @app.route('/')
 def index():
-    return render_template('index.html',
-                           game_nav=generate_game_nav())
+    return render_template('index.html', game_nav=generate_game_nav())
 
 
-@app.route('/games/<game_name>')
-def game_viewer(game_name):
-    player_image_urls = get_player_picture_urls(os.path.join(PGNS_PATH, f'{game_name}.pgn'))
+@app.route('/games/<folder>/<game_name>')
+def game_viewer(folder, game_name):
+    # interacts with wikipedia api
+    player_image_urls = get_player_picture_urls(os.path.join(PGNS_PATH, f'{folder}/{game_name}.pgn'))
     return render_template('game_viewer.html',
-                           game_path=url_for('static', filename=f'game_viewer_pgns/{game_name}.pgn'),
+                           game_path=url_for('static', filename=f'game_viewer_pgns/{folder}/{game_name}.pgn'),
                            game_nav=generate_game_nav(),
                            player_image_urls=player_image_urls)
 
 
 @app.route('/puzzles')
 def puzzles():
-    return render_template('puzzles.html',
-                           game_nav=generate_game_nav())
+    return render_template('puzzles.html', game_nav=generate_game_nav())
 
 
 # tool_target is either pdf_printer or custom_game_viewer
@@ -109,24 +114,32 @@ def chess_print_ui():
             printer.font_size = form.font_size.data
         if form.column_gap.data:
             printer.col_gap = form.column_gap.data
-        pdf = printer.create_and_return_document().getvalue()
+        pdf = printer.build_and_return_document().getvalue()
         form.halfmoves.choices = [(i, move.san()) for i, move in enumerate(printer.game.mainline())]
     else:
         printer = GamePrinter(os.path.join(SAVED_PGNS_PATH, session['pp_filename']))
-        pdf = printer.create_and_return_document().getvalue()
+        pdf = printer.build_and_return_document().getvalue()
         form.halfmoves.choices = [(i, move.san()) for i, move in enumerate(printer.game.mainline())]
     return render_template('chess_print.html',
                            form=form,
                            pgn_parse_errors=printer.game.errors,
                            game_nav=generate_game_nav(),
                            original_filename=session['pp_original_filename'],
+                           pdf_filename=printer.filename,
                            pdf_output=str(b64encode(pdf))[2:-1] if pdf else '')
 
 
 @app.route('/tools/custom_pgn_viewer')
 def custom_game_viewer():
+    # interacts with wikipedia api
     player_image_urls = get_player_picture_urls(os.path.join(SAVED_PGNS_PATH, session['cgv_filename']))
     return render_template('game_viewer.html',
                            game_path=os.path.join(SAVED_PGNS_PATH[3:], session['cgv_filename']),  # for html-files '/' is '/app'
                            game_nav=generate_game_nav(),
                            player_image_urls=player_image_urls)
+
+
+@app.route('/impressum')
+def impressum():
+    return render_template('impressum.html',
+                           game_nave=generate_game_nav)
