@@ -9,9 +9,11 @@ from base64 import b64encode
 
 # TODO
 # - implement space before and after?
+# - clk in pgns
+# - upload directly
+# - pdf-viewer?
 # - change page-title
 # - timeout for pictures
-# - css navigation!!
 # - revise background-images
 # - think about error handling
 # - more comments
@@ -67,8 +69,8 @@ def puzzles():
     return render_template('puzzles.html', game_nav=generate_game_nav())
 
 
-# tool_target is either pdf_printer or custom_game_viewer
-@app.route('/tools/<tool_target>_upload?reset=<reset>', methods=['GET', 'POST'])
+# tool_target is either 'pdf_printer' or 'custom_game_viewer'
+@app.route('/tools/<tool_target>_upload&reset=<reset>', methods=['GET', 'POST'])
 def uploader(tool_target, reset):
     if tool_target == 'pdf_printer':
         filename_key = 'pp_filename'
@@ -79,22 +81,42 @@ def uploader(tool_target, reset):
     # If tool should not be reset and a file_path is in cookie send to tool
     if reset == 'False' and session.get(filename_key):
         return redirect(url_for('chess_print_ui' if tool_target == 'pdf_printer' else 'custom_game_viewer'))
+    # Reset cookies
     session.pop(filename_key, None)
     session.pop(original_filename_key, None)
     form = Upload()
     if form.validate_on_submit():
-        f = form.upload.data
-        session[filename_key] = unique_filename()
-        session[original_filename_key] = secure_filename(f.filename)
-        f.save(os.path.join(SAVED_PGNS_PATH, session[filename_key]))
+        # file uploaded
+        if form.upload.data and not form.pgn_text.data:
+            f = form.upload.data
+            session[filename_key] = unique_filename()
+            session[original_filename_key] = secure_filename(f.filename)
+            f.save(os.path.join(SAVED_PGNS_PATH, session[filename_key]))
+        # pgn text provided
+        elif form.pgn_text.data and not form.upload.data:
+            session[filename_key] = unique_filename()
+            session[original_filename_key] = 'pgn text'
+            with open(os.path.join(SAVED_PGNS_PATH, session[filename_key]), 'w') as pgn:
+                pgn.write(form.pgn_text.data)
+        # nothing or both provided
+        else:
+            return render_template('pgn_upload.html',
+                                   error=True,
+                                   is_for_ppTool=tool_target == 'pdf_printer',
+                                   game_nav=generate_game_nav(),
+                                   form=form)
         return redirect(url_for('chess_print_ui' if tool_target == 'pdf_printer' else 'custom_game_viewer'))
     return render_template('pgn_upload.html',
+                           error=False,
+                           is_for_ppTool=tool_target == 'pdf_printer',
                            game_nav=generate_game_nav(),
                            form=form)
 
 
 @app.route('/tools/pdf_printer', methods=['GET', 'POST'])
 def chess_print_ui():
+    if not session.get('pp_filename'):
+        return redirect(url_for('uploader', tool_target='pdf_printer', reset='True'))
     form = Options()
     if form.validate_on_submit():
         printer = GamePrinter(os.path.join(SAVED_PGNS_PATH, session['pp_filename']),
@@ -125,8 +147,7 @@ def chess_print_ui():
                            pgn_parse_errors=printer.game.errors,
                            game_nav=generate_game_nav(),
                            original_filename=session['pp_original_filename'],
-                           pdf_filename=printer.filename,
-                           pdf_output=str(b64encode(pdf))[2:-1] if pdf else '')
+                           embed=str(b64encode(pdf))[2:-1] if pdf else '')
 
 
 @app.route('/tools/custom_pgn_viewer')

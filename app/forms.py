@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import SubmitField, IntegerField, FloatField, SelectMultipleField, RadioField, SelectField, StringField
+from wtforms import SubmitField, IntegerField, FloatField, SelectMultipleField, RadioField, SelectField, StringField, TextAreaField
 from wtforms.validators import NumberRange, Optional, Regexp
 from wtforms.widgets import html_params
 from flask_wtf.file import FileField, FileRequired, FileAllowed
@@ -40,7 +40,9 @@ class NoValidationRadioField(RadioField):
 
 
 class Upload(FlaskForm):
-    upload = FileField('select pgn file', validators=[FileRequired(), FileAllowed(['pgn'], 'only pgn files')])
+    pgn_text = TextAreaField('paste pgn')
+    # upload = FileField('select pgn file', validators=[FileRequired(), FileAllowed(['pgn'], 'only pgn files')])
+    upload = FileField('select pgn file', validators=[FileAllowed(['pgn'], 'only pgn files')])
     submit = SubmitField('upload')
 
 

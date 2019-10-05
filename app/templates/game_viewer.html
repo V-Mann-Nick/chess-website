@@ -114,7 +114,7 @@
     <break></break> <!-- To make flexbox break -->
     <div id="GameText" class="gameText regularText"></div> <!-- populated by pgn4web.js -->
     <break></break> <!-- To make flexbox break -->
-    <a  download href="{{ url_for('static', filename='game_viewer_pgns/{}'.format(game_filename)) }}"
+    <a  download href="{{ game_path }}"
         class="button"
         id="DownloadPGN">
         <i class="material-icons">archive</i>Download PGN

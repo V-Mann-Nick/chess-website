@@ -34,7 +34,7 @@ nav {
 
 /* is mainly styled by .button (css/2-base/global.css) class. */
 .navButton {
-    border-radius: 6px;
+    border-radius: 0;
     text-decoration: none;
     align-items: center;
     display: flex;
@@ -55,19 +55,11 @@ nav {
 .submenu {
     -webkit-transition: max-height 200ms ease-in-out;
     background-color: var(--color-4);
-    display: block;
+    display: none;
     left: 0;
-    max-height: 0;
-    overflow: hidden;
     position: absolute;
-    transition: max-height 200ms ease-in-out;
     width: 100%;
     z-index: 1;
-}
-
-/* on hover over .menuItem which are children of #MainMenu change style of children of class .submenu */
-#MainMenu>.menuItem:hover > .submenu {
-    max-height: 500px;
 }
 
 /* change colors of submenu */
@@ -79,6 +71,10 @@ nav {
 .submenu .navButton:hover, .subsubmenu .navButton:hover {
     background-color: var(--color-3);
     color: var(--color-0);
+}
+
+.submenu > .menuItem {
+    position: relative;
 }
 
 /*******************************************/
@@ -93,11 +89,10 @@ nav {
     display: none;
 }
 
-.submenu:hover {
-    overflow: visible;
-}
+/* #MainMenu .menuItem .menuItem:hover .subsubmenu { */
+/*     display: block; */
+/* } */
 
-.submenu>.menuItem:hover > .subsubmenu {
+#MainMenu .menuItem:hover > ul {
     display: block;
 }
-

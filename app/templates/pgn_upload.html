@@ -29,10 +29,28 @@
 
 
 {% block content %}
-    <p id="Instruction" class="regularText">Instruction needed</p>
+    <div id="Instruction" class="regularText">
+        {% if is_for_ppTool %}
+            <h2>PGN Pretty Print Tool</h2>
+            <div id="TextAndImage">
+                <p class="regularText">This tool formats annotated chess games and provides
+                formatting options. You can select the moves in a game after which the position is to be printed.<br>
+                <a href="https://github.com/V-Mann-Nick/pgn-pretty-print" target="_blank">Implementation details</a>.<br>
+                <u>Limitations:</u> the tool can only handle pgn-files with one game.
+                <strong><u>First step: provide a pgn via the text field or the upload below.</u></strong></p>
+                <img src="{{ url_for('static', filename='images/ppp_preview/ppp_preview.png') }}" alt="pretty print preview">
+            </div>
+        {% else %}
+            for custo game viewer
+        {% endif %}
+    </div>
     <form id="PgnUpload" action="" method="post" enctype="multipart/form-data" novalidate>
         {{ form.hidden_tag() }}
+        {{ form.pgn_text }}
         {{ form.upload }}
+        {% if error %}
+        <p id="UploadError" class="regularText">Provide pgn as text <u>or</u> file!</p>
+        {% endif %}
         <p id="submit">{{ form.submit(class_="button") }}</p>
     </form>
 {% endblock %}

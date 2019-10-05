@@ -8,9 +8,41 @@ main {
     align-items: center;
 }
 
+#Instruction {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5px 5px;
+}
+
+#TextAndImage {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#Instruction p {
+    width: 50%;
+}
+
+#Instruction img {
+    width: 30%;
+}
+
+
 #PgnUpload {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
 }
 
+#pgn_text {
+    width: 40%;
+    height: 40vh;
+}
+
+#UploadError {
+    color: red;
+}
