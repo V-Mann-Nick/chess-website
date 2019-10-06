@@ -18,15 +18,15 @@
 <!-- for every pgn found in /static/game_viewer_pgns -->
 {% block game_navigation %}
     <ul class="submenu">
-        {% for folder in game_nav %}
+        {% for category in game_nav %}
         <li class="menuItem">
             <a  href="#"
-                class="button navButton">{{ folder[0] }}</a>
+                class="button navButton">{{ category[0] }}</a>
             <ul class="subsubmenu">
-                {% for game in folder[1] %}
+                {% for game in category[1] %}
                 <li class="menuItem">
                     <a class="button navButton"
-                       href="{{ url_for('game_viewer', folder=folder[0], game_name=game[0]) }}">{{ game[1] }}</a>
+                       href="{{ url_for('game_viewer', id=game[1]) }}">{{ game[0] }}</a>
                 </li>
                 {% endfor %}
             </ul>
@@ -50,8 +50,7 @@
         <form id="Options" action="" method="post" enctype="multipart/form-data" novalidate>
             {{ form.hidden_tag() }}
             <div id="selectedFile" class="optionModule">
-                <p class="regularText">selected file: <strong>{{ original_filename }}</strong></p>
-                <a href="{{ url_for('uploader', tool_target='pdf_printer', reset=True) }}" class="button">reset</a>
+                <p class="regularText"><strong>{{ game_name }}</strong></p>
             </div>
             <div id="PrintToolButtons" class="optionModule">
                 {{ form.submit(class_="button") }}

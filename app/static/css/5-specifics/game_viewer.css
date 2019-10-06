@@ -104,7 +104,12 @@ main {
 /*--------------DOWNLOAD PGN-----------------*/
 /*********************************************/
 
-#DownloadPGN {
+#gvOptions {
+    display: flex;
     margin: 1.5vw auto;
     order: 100; /* to put it at the end */
+}
+
+#gvOptions a {
+    margin: 1vw;
 }

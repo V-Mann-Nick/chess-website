@@ -23,15 +23,15 @@
 <!-- for every pgn found in /static/game_viewer_pgns -->
 {% block game_navigation %}
     <ul class="submenu">
-        {% for folder in game_nav %}
+        {% for category in game_nav %}
         <li class="menuItem">
             <a  href="#"
-                class="button navButton">{{ folder[0] }}</a>
+                class="button navButton">{{ category[0] }}</a>
             <ul class="subsubmenu">
-                {% for game in folder[1] %}
+                {% for game in category[1] %}
                 <li class="menuItem">
                     <a class="button navButton"
-                       href="{{ url_for('game_viewer', folder=folder[0], game_name=game[0]) }}">{{ game[1] }}</a>
+                       href="{{ url_for('game_viewer', id=game[1]) }}">{{ game[0] }}</a>
                 </li>
                 {% endfor %}
             </ul>
@@ -43,12 +43,14 @@
 
 <!-- is put into <main></main> -->
 {% block content %}
+    <form style="display: none;"><textarea style="display: none;" id="pgnText">
+        {{ pgn_text }}
+    </textarea></form>
     <div id="GameInformation">
         <h2> <!-- Format: Player1 vs Player 2 (dd.mm.yyyy) -->
             <span id="GameWhite"></span> vs <span id="GameBlack"></span>
             (<span id="GameDate"></span>)
         </h2>
-        <h3><span id="GameEvent"></span></h3>
         <h3 id="Variation"></h3> <!-- populated by ecoCodeToName.js -->
         <script src="js/ecoCodeToName.js"></script>
     </div> <!-- End GameInformation -->
@@ -90,14 +92,12 @@
     </div> <!-- End BoardAndButtons -->
     <div id="PlayerPictures">
         <figure id="Player2">
-            <img        src="{{ player_image_urls['Black'] }}"
-                        alt="black player image">
+            <img src="{{ player_image_urls['Black'] }}" alt="black player image">
             <!-- <p class="imgsource">{{ player_image_urls['Black'] }}</p> -->
             <figcaption><span id="GameBlack"></span></figcaption>
         </figure>
         <figure id="Player1">
-            <img        src="{{ player_image_urls['White'] }}"
-                        alt="white player image">
+            <img src="{{ player_image_urls['White'] }}" alt="white player image">
             <!-- <p class="imgsource">{{ player_image_urls['White'] }}</p> -->
             <figcaption><span id="GameWhite"></span></figcaption>
         </figure>
@@ -114,9 +114,12 @@
     <break></break> <!-- To make flexbox break -->
     <div id="GameText" class="gameText regularText"></div> <!-- populated by pgn4web.js -->
     <break></break> <!-- To make flexbox break -->
-    <a  download href="{{ game_path }}"
-        class="button"
-        id="DownloadPGN">
-        <i class="material-icons">archive</i>Download PGN
-    </a>
+    <div id="gvOptions">
+        <a  download href="{{ game_path }}" class="button">
+            <i class="material-icons">archive</i>Download PGN
+        </a>
+        <a href="{{ url_for('chess_print_ui', id=game_id) }}" class="button">
+            <i class="material-icons">print</i>Pretty Print
+        </a>
+    </div>
 {% endblock %}

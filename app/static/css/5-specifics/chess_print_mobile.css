@@ -1,0 +1,38 @@
+@media only screen and (max-width: 480px) {
+
+    #optionsAndPreview {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #Options {
+        width: 100%;
+    }
+
+    #pdf_preview {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    #halfmoves {
+        height: auto;
+        overflow: hidden;
+    }
+
+    .colorBox{
+        height: 5vw;
+        max-height: 55px;
+        width: 5vw;
+        max-width: 55px;
+    }
+
+
+
+}
+
+/* smartphones in landscape */
+@media only screen
+and (max-height: 480px)
+and (orientation: landscape) {
+
+}

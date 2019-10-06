@@ -1,0 +1,41 @@
+/*********************************************************/
+/*---THIS DOCUMENT CONTAINS STYLES FOR THE PDF PREVIEW---*/
+/*********************************************************/
+
+#pdf-loader {
+    display: none;
+    text-align: center;
+    color: #999999;
+    font-size: 13px;
+    line-height: 100px;
+    height: 100px;
+}
+
+#pdf-contents {
+    display: none;
+}
+
+#pdf-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 10px 0;
+}
+
+#pdf-current-page, #pdf-total-pages {
+    display: inline;
+}
+
+#pdf-canvas {
+    border: 1px solid rgba(0,0,0,0.2);
+    box-sizing: border-box;
+    /* width: 100%; */
+}
+
+#page-loader {
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+    display: none;
+    color: #999999;
+    font-size: 13px;

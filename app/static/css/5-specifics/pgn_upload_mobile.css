@@ -1,0 +1,18 @@
+@media only screen and (max-width: 480px) {
+
+    #TextAndImage {
+        flex-direction: column;
+    }
+
+    #Instruction p, #Instruction figure {
+        width: 100%;
+    }
+}
+
+
+/* smartphones in landscape */
+@media only screen
+and (max-height: 480px)
+and (orientation: landscape) {
+
+}

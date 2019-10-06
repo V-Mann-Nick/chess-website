@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+
+<!-- submenu points for "noteworthy games" is generated dynamically in routes.py. It creates a menu point -->
+<!-- for every pgn found in /static/game_viewer_pgns -->
+{% block game_navigation %}
+    <ul class="submenu">
+        {% for category in game_nav %}
+        <li class="menuItem">
+            <a  href="#"
+                class="button navButton">{{ category[0] }}</a>
+            <ul class="subsubmenu">
+                {% for game in category[1] %}
+                <li class="menuItem">
+                    <a class="button navButton"
+                       href="{{ url_for('game_viewer', id=game[1]) }}">{{ game[0] }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+
+<!-- is put into <main></main> -->
+{% block content %}
+    <div class="regularText">
+        <h1>Impressum - Legal Notice</h1>
+
+        <p>
+            Nicklas Sedlock<br>
+            E-Mail: <a href="mailto:n.negotium@posteo.net">n.negotium@posteo.net</a>
+        </p>
+    </div>
+{% endblock %}
