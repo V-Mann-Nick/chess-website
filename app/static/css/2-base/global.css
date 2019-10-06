@@ -95,6 +95,7 @@ button, .button {
     font-family: 'Lato';
     font-weight: bold;
     text-decoration: none;
+    font-size: 1.5vw;
 }
 
 button:active, .button:active {
@@ -139,6 +140,10 @@ exceded font-size will stop getting biger */
     .errorText {
         font-size: 11px;
     }
+
+    button, .button {
+        font-size: 16.5px;
+    }
 }
 
 /* limit font-sizes from getting to small */
@@ -169,5 +174,9 @@ exceded font-size will stop getting biger */
 
     .errorText {
         font-size: 7.5px;
+    }
+
+    button, .button {
+        font-size: 11.25px;
     }
 }

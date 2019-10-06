@@ -16,4 +16,14 @@
     .navButton {
         height: auto;
     }
+
+    .subsubmenu {
+        position: static;
+        width: 100%;
+    }
+
+    .subsubmenu .menuItem a {
+        background-color: var(--color-4);
+        color: var(--color-0);
+    }
 }

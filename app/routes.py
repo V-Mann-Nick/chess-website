@@ -11,7 +11,6 @@ from base64 import b64encode
 # - implement space before and after?
 # - clk in pgns
 # - upload directly
-# - pdf-viewer?
 # - change page-title
 # - timeout for pictures
 # - revise background-images
@@ -147,7 +146,7 @@ def chess_print_ui():
                            pgn_parse_errors=printer.game.errors,
                            game_nav=generate_game_nav(),
                            original_filename=session['pp_original_filename'],
-                           embed=str(b64encode(pdf))[2:-1] if pdf else '')
+                           pdf_output=str(b64encode(pdf))[2:-1] if pdf else '')
 
 
 @app.route('/tools/custom_pgn_viewer')

@@ -25,6 +25,16 @@
     width: 100%;
 }
 
+#selectedFile {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#selectedFile .button {
+    height: 100%;
+}
+
 #halfmoves {
     height: 30vh;
     width: 100%;
@@ -37,21 +47,11 @@
     display: inline;
 }
 
-/* #halfmoves li:nth-child(odd)::before { */
-/*     content: "\A"; */
-/*     white-space: pre; */
-/* } */
-
 #ColorOptions {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
 }
-
-/* #ColorTemplates { */
-/*     display: flex; */
-/*     flex-direction: column; */
-/* } */
 
 #CustomColors {
     display: flex;
@@ -85,7 +85,6 @@
 #pdf_preview {
     width: 50vw;
     max-width: 550px;
-    height: 800px;
 }
 
 .colorBox {

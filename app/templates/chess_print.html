@@ -8,6 +8,9 @@
 
 {% block js_imports %}
     <script src="{{ url_for('static', filename='js/download.js') }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/pdfjs/pdf.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/pdfjs/pdf.worker.js') }}"></script>
 {% endblock %}
 
 
@@ -17,7 +20,7 @@
     <ul class="submenu">
         {% for folder in game_nav %}
         <li class="menuItem">
-            <a  href=""
+            <a  href="#"
                 class="button navButton">{{ folder[0] }}</a>
             <ul class="subsubmenu">
                 {% for game in folder[1] %}
@@ -46,7 +49,10 @@
     <div id="optionsAndPreview">
         <form id="Options" action="" method="post" enctype="multipart/form-data" novalidate>
             {{ form.hidden_tag() }}
-            <h3>selected file: <strong>{{ original_filename }}</strong></h3>
+            <div id="selectedFile" class="optionModule">
+                <p class="regularText">selected file: <strong>{{ original_filename }}</strong></p>
+                <a href="{{ url_for('uploader', tool_target='pdf_printer', reset=True) }}" class="button">reset</a>
+            </div>
             <div class="optionModule">
                 <p class="regularText"><strong>Select the moves after which
                     the board should be printed.</strong></p>
@@ -119,13 +125,46 @@
             </div> <!-- end FontSettings -->
             <div id="PrintToolButtons" class="optionModule">
                 {{ form.submit(class_="button") }}
-                <a href="{{ url_for('uploader', tool_target='pdf_printer', reset=True) }}" class="button">reset</a>
                 <button type="button"
                         onClick="download('data:application/pdf;base64,{{ pdf_output }}', '{{ pdf_filename }}', 'application/pdf')">
                     save
                 </button>
             </div>
         </form>
-        <iframe id="pdf_preview" src="data:application/pdf;base64,{{ pdf_output }}" type="application/pdf"></iframe>
+        <!-- <iframe id="pdf_preview" src="data:application/pdf;base64,{{ pdf_output }}" type="application/pdf"></iframe> -->
+        <div id="pdf_preview">
+                <div id="pdf-loader" class="regularText">Loading document ...</div>
+                <div id="pdf-contents">
+                        <div id="pdf-meta">
+                                <div id="pdf-buttons">
+                                        <button id="pdf-prev"><i class="material-icons">arrow_back</i></button>
+                                        <button id="pdf-next"><i class="material-icons">arrow_forward</i></button>
+                                </div>
+                                <strong><div id="page-count-container">Page <div id="pdf-current-page"></div> of <div id="pdf-total-pages"></div></div></strong>
+                        </div>
+                        <canvas id="pdf-canvas"></canvas>
+                        <div id="page-loader">Loading page ...</div>
+                </div>
+        </div>
+        <script src="{{ url_for('static', filename='js/pdfPlugin.js') }}"></script>
+        <script>
+            canvas = document.getElementById('pdf-canvas');
+            cs = getComputedStyle(document.getElementById('pdf_preview'));
+            canvas.width = parseInt(cs.getPropertyValue('width'), 10)
+            // load pdf
+            showPDF("{{ pdf_output }}")
+
+            // Previous page of the PDF
+            $("#pdf-prev").on('click', function() {
+                    if(__CURRENT_PAGE != 1)
+                            showPage(--__CURRENT_PAGE);
+            });
+
+            // Next page of the PDF
+            $("#pdf-next").on('click', function() {
+                    if(__CURRENT_PAGE != __TOTAL_PAGES)
+                            showPage(++__CURRENT_PAGE);
+            });
+        </script>
     </div>
 {% endblock %}
