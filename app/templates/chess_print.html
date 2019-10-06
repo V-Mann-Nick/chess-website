@@ -53,6 +53,13 @@
                 <p class="regularText">selected file: <strong>{{ original_filename }}</strong></p>
                 <a href="{{ url_for('uploader', tool_target='pdf_printer', reset=True) }}" class="button">reset</a>
             </div>
+            <div id="PrintToolButtons" class="optionModule">
+                {{ form.submit(class_="button") }}
+                <button type="button"
+                        onClick="download('data:application/pdf;base64,{{ pdf_output }}', '{{ pdf_filename }}', 'application/pdf')">
+                    save
+                </button>
+            </div>
             <div class="optionModule">
                 <p class="regularText"><strong>Select the moves after which
                     the board should be printed.</strong></p>
@@ -60,7 +67,7 @@
             </div>
             <div id="ColorSelector" class="optionModule">
                 <p class="regularText"><strong>Choose a dark/light color combination for the printed boards.
-                    Either choose a template or give your own colors in hex-format.</strong></p><br>
+                    Either choose a template or give your own colors in hex-format.</strong></p>
                 <div id="ColorOptions">
                     <div id="ColorTemplates">
                         {{ form.color.label(class_='regularText') }}
@@ -123,13 +130,6 @@
                     {% endfor %}
                 </div>
             </div> <!-- end FontSettings -->
-            <div id="PrintToolButtons" class="optionModule">
-                {{ form.submit(class_="button") }}
-                <button type="button"
-                        onClick="download('data:application/pdf;base64,{{ pdf_output }}', '{{ pdf_filename }}', 'application/pdf')">
-                    save
-                </button>
-            </div>
         </form>
         <!-- <iframe id="pdf_preview" src="data:application/pdf;base64,{{ pdf_output }}" type="application/pdf"></iframe> -->
         <div id="pdf_preview">

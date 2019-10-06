@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="de" dir="ltr">
+<html lang="en" dir="ltr">
 <head>
-    <title>Springer am Rand ...</title>
+    <title>Gambit Accepted</title>
     <meta charset="utf-8">
-    <meta name="description" content="Inhalte und Tools für Schachinteressierte">
+    <meta name="description" content="Explore my selection of fantastic chess games and pretty print your
+    pgns to pdf">
     <meta name="keywords" content="Chess, Schach, Karpov, Kasparov, Tal, Lasker,
-    Capablanca, Taktik, Strategie, PGN, pgn4web, color-thief">
-    <meta name="author" content="Timon Kunze, Nicklas Sedlock">
+    Capablanca, Taktik, Strategie, PGN, pgn4web, color-thief, pgn-pretty-print, pdf, formatting">
+    <meta name="author" content="Nicklas Sedlock">
     <meta name="robots" content="index, follow, noarchive">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon/favicon.ico') }}">
@@ -37,7 +38,7 @@ setupColorThief(null, headerOp, navFootOp, mainOp) -->
     if(checkCookie('background')){
       changeMainBackground(Number(getCookie('background')));
     } else {
-      changeMainBackground(1);
+      changeMainBackground(0);
     }
     setupColorThief(0, 0.9, 1, 0.9);">
     <div id="PageBox">
@@ -80,9 +81,7 @@ setupColorThief(null, headerOp, navFootOp, mainOp) -->
                             changeMainBackground(4);
                             setupColorThief(4, 0.9, 1, 0.9);">
             </div>
-            <h1>Springer am Rand</h1>
-            <h1 id="Etc">...</h1>
-            <h3 id="EtcText">bringt Kummer und Schand</h3>
+            <h1>Gambit Accepted</h1>
         </header>
 
 <!---------------------------------------------------------------------------------------->
@@ -125,15 +124,15 @@ setupColorThief(null, headerOp, navFootOp, mainOp) -->
 <!-- *********************************MAIN********************************************* -->
 <!---------------------------------------------------------------------------------------->
         <main>
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-            <ul>
-                {% for message in messages %}
-                <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-            {% endwith %}
+            <!-- {% with messages = get_flashed_messages() %} -->
+            <!-- {% if messages %} -->
+            <!-- <ul> -->
+            <!--     {% for message in messages %} -->
+            <!--     <li>{{ message }}</li> -->
+            <!--     {% endfor %} -->
+            <!-- </ul> -->
+            <!-- {% endif %} -->
+            <!-- {% endwith %} -->
             {% block content %}{% endblock %}
         </main>
 
@@ -144,9 +143,9 @@ setupColorThief(null, headerOp, navFootOp, mainOp) -->
 
         <footer>
             <div id="LinkImpressum" class="regularText" >
-                <a  href="{{ url_for('impressum') }}"><strong>Impressum</strong></a>
-                und
-                <a href="privacy_statement.html"><strong>Datenschutzerkl&auml;rung</strong></a>
+                <a  href="{{ url_for('impressum') }}"><strong>Impressum (Legal Notice)</strong></a>
+                and
+                <a href="{{ url_for('privacy_statement') }}"><strong>Privacy Statement</strong></a>
             </div>
         </footer>
 

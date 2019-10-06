@@ -8,9 +8,9 @@
     configColorPalette.js creates a color palette based on the average color of the background image.
     The larger the integer is the more luminescent the color is. */
 
-    --color-0: rgb(46,38,30); /* main, header and font color only for nav and footer */
-    --color-1: rgb(124,118,113);
-    --color-2: rgb(159,172,193);
-    --color-3: rgb(196,175,133);
-    --color-4: rgb(220,215,188); /* font color */
+    --color-0: rgb(43,40,40); /* main, header and font color only for nav and footer */
+    --color-1: rgb(108,108,108);
+    --color-2: rgb(116,116,116);
+    --color-3: rgb(136,136,136);
+    --color-4: rgb(214,214,214); /* font color */
 }

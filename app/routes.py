@@ -146,6 +146,7 @@ def chess_print_ui():
                            pgn_parse_errors=printer.game.errors,
                            game_nav=generate_game_nav(),
                            original_filename=session['pp_original_filename'],
+                           pdf_filename=printer.filename,
                            pdf_output=str(b64encode(pdf))[2:-1] if pdf else '')
 
 
@@ -162,4 +163,9 @@ def custom_game_viewer():
 @app.route('/impressum')
 def impressum():
     return render_template('impressum.html',
-                           game_nave=generate_game_nav)
+                           game_nav=generate_game_nav())
+
+@app.route('/privacy_statement')
+def privacy_statement():
+    return render_template('privacy_statement.html',
+                           game_nav=generate_game_nav())

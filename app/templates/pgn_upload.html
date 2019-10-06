@@ -39,10 +39,13 @@
                 <a href="https://github.com/V-Mann-Nick/pgn-pretty-print" target="_blank">Implementation details</a>.<br>
                 <u>Limitations:</u> the tool can only handle pgn-files with one game.
                 <strong><u>First step: provide a pgn via the text field or the upload below.</u></strong></p>
-                <img src="{{ url_for('static', filename='images/ppp_preview/ppp_preview.png') }}" alt="pretty print preview">
+                <figure>
+                    <figcaption><h3><u>Example output</u></h3></figcaption>
+                    <img src="{{ url_for('static', filename='images/ppp_preview/ppp_preview.png') }}" alt="pretty print preview">
+                </figure>
             </div>
         {% else %}
-            for custo game viewer
+            <h2>Paste or upload a pgn-file</h2>
         {% endif %}
     </div>
     <form id="PgnUpload" action="" method="post" enctype="multipart/form-data" novalidate>
