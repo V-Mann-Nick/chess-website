@@ -17,6 +17,7 @@ def new_game(pgn_string):
     game = read_game(StringIO(pgn_string))
     white_player = game.headers.get('White')
     black_player = game.headers.get('Black')
+    result = game.headers.get('Result')
     game_date = parse(game.headers.get('Date')).date() if game.headers.get('Date') else None
     eco_matches = Opening.query.filter_by(eco_code=game.headers.get('ECO'))
     # if ECO is ambigious it will explore the moves for a match
@@ -32,6 +33,7 @@ def new_game(pgn_string):
     return Game(pgn=pgn_string,
                 white_player=white_player,
                 black_player=black_player,
+                result=result,
                 date=game_date,
                 opening_id=opening_id)
 
