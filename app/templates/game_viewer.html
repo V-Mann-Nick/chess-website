@@ -52,7 +52,7 @@
             (<span id="GameDate"></span>)
         </h2>
         <h3 id="Variation"></h3> <!-- populated by ecoCodeToName.js -->
-        <script src="js/ecoCodeToName.js"></script>
+        <script src="{{ url_for('static', filename='js/ecoCodeToName.js') }}"></script>
     </div> <!-- End GameInformation -->
     <div id="BoardAndButtons">
         <div id="GameBoard"></div> <!-- populated by pgn4web.js -->
