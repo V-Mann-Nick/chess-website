@@ -12,6 +12,9 @@ argparse = "*"
 flask = "*"
 flask-wtf = "*"
 requests = "*"
+flask-sqlalchemy = "*"
+flask-migrate = "*"
+flask-shell-ipython = "*"
 
 [requires]
 python_version = "3.7"
