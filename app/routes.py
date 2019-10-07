@@ -1,7 +1,7 @@
 from app import app, db
 from app.pgn_pretty_print import GamePrinter
 from app.player_pictures import get_wikipicture_url
-from app.models import PgnFile, new_PgnFile
+from app.models import Game, new_game
 from flask import render_template, url_for, redirect
 from app.forms import Options, Upload
 from base64 import b64encode
@@ -20,11 +20,11 @@ SAVED_PGNS_PATH = 'app/static/pgns/'
 PGNS_PATH = 'app/static/game_viewer_pgns/'
 # notworthy navigation games will be generated
 # [(category, [id1, id2, id3, ...]), ...]
-GAME_NAV = [('Bobby Fischer', [4, 5, 6, 7, 8, 9])]  # EDIT!
+GAME_NAV = [('Bobby Fischer', [1, 2, 3, 4, 5, 6])]  # EDIT!
 # [(category1, [(game1_label, game1_id), ...]), (cateogry2, [(game1_label, game1_id), ...])]
-GAME_NAV = [(category[0], [(f"{PgnFile.query.get(i).white_player.split(' ')[-1]}-"  # NOEDIT!
-                          + f"{PgnFile.query.get(i).black_player.split(' ')[-1]} "
-                          + f"({PgnFile.query.get(i).date.year})", i) for i in category[1]]) for category in GAME_NAV]
+GAME_NAV = [(category[0], [(f"{Game.query.get(i).white_player.split(' ')[-1]}-"  # NOEDIT!
+                          + f"{Game.query.get(i).black_player.split(' ')[-1]} "
+                          + f"({Game.query.get(i).date.year})", i) for i in category[1]]) for category in GAME_NAV]
 
 
 @app.route('/')
@@ -36,13 +36,14 @@ def index():
 def game_viewer(id):
     # interacts with wikipedia api
     id = int(id)
-    player_image_urls = {'White': get_wikipicture_url(PgnFile.query.get(id).white_player),
-                         'Black': get_wikipicture_url(PgnFile.query.get(id).black_player)}
+    player_image_urls = {'White': get_wikipicture_url(Game.query.get(id).white_player),
+                         'Black': get_wikipicture_url(Game.query.get(id).black_player)}
     return render_template('game_viewer.html',
                            # game_path=os.path.join(SAVED_PGNS_PATH[3:], session['cgv_filename']),  # for html-files '/' is '/app'
-                           pgn_text=PgnFile.query.get(id).pgn,
+                           pgn_text=Game.query.get(id).pgn,
                            game_id=id,
                            game_nav=GAME_NAV,
+                           opening=Game.query.get(id).opening.name,
                            player_image_urls=player_image_urls)
 
 
@@ -68,11 +69,11 @@ def uploader(tool_target):
                                    is_for_ppTool=tool_target == 'pdf_printer',
                                    game_nav=GAME_NAV,
                                    form=form)
-        query = PgnFile.query.filter_by(pgn=pgn_text)
+        query = Game.query.filter_by(pgn=pgn_text)
         if query.count():  # if pgn is already in db
             id = query.first().id
         else:  # else add to db
-            pgn = new_PgnFile(pgn_text)
+            pgn = new_game(pgn_text)
             db.session.add(pgn)
             db.session.commit()
             id = pgn.id
@@ -87,7 +88,7 @@ def uploader(tool_target):
 @app.route('/tools/pdf_printer_id=<id>', methods=['GET', 'POST'])
 def chess_print_ui(id):
     form = Options()
-    game = PgnFile.query.get(int(id))
+    game = Game.query.get(int(id))
     if form.validate_on_submit():
         printer = GamePrinter(game.pgn,
                               halfmoves_to_be_printed=form.halfmoves.data,

@@ -51,8 +51,9 @@
             <span id="GameWhite"></span> vs <span id="GameBlack"></span>
             (<span id="GameDate"></span>)
         </h2>
-        <h3 id="Variation"></h3> <!-- populated by ecoCodeToName.js -->
-        <script src="{{ url_for('static', filename='js/ecoCodeToName.js') }}"></script>
+        {% if opening %}
+        <h3 id="Variation">Opening: {{ opening }}</h3>
+        {% endif %}
     </div> <!-- End GameInformation -->
     <div id="BoardAndButtons">
         <div id="GameBoard"></div> <!-- populated by pgn4web.js -->
