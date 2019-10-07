@@ -47,9 +47,8 @@
         {{ pgn_text }}
     </textarea></form>
     <div id="GameInformation">
-        <h2> <!-- Format: Player1 vs Player 2 (dd.mm.yyyy) -->
-            <span id="GameWhite"></span> vs <span id="GameBlack"></span>
-            (<span id="GameDate"></span>)
+        <h2> <!-- Format: Player1 vs Player 2 (date) -->
+            {{ white_player }} - {{ black_player }} ({{ game_date}}) [{{ result }}]
         </h2>
         {% if opening %}
         <h3 id="Variation">Opening: {{ opening }}</h3>
@@ -95,12 +94,12 @@
         <figure id="Player2">
             <img src="{{ player_image_urls['Black'] }}" alt="black player image">
             <!-- <p class="imgsource">{{ player_image_urls['Black'] }}</p> -->
-            <figcaption><span id="GameBlack"></span></figcaption>
+            <figcaption>{{ black_player }}</figcaption>
         </figure>
         <figure id="Player1">
             <img src="{{ player_image_urls['White'] }}" alt="white player image">
             <!-- <p class="imgsource">{{ player_image_urls['White'] }}</p> -->
-            <figcaption><span id="GameWhite"></span></figcaption>
+            <figcaption>{{ white_player }}</figcaption>
         </figure>
     </div> <!-- End PlayerPictures -->
     <break></break> <!-- To make flexbox break -->

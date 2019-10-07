@@ -20,7 +20,8 @@ SAVED_PGNS_PATH = 'app/static/pgns/'
 PGNS_PATH = 'app/static/game_viewer_pgns/'
 # notworthy navigation games will be generated
 # [(category, [id1, id2, id3, ...]), ...]
-GAME_NAV = [('Bobby Fischer', [1, 2, 3, 4, 5, 6])]  # EDIT!
+GAME_NAV = [('Bobby Fischer', [1, 2, 3, 4, 5, 6]),
+            ('Alexander Alekhine', [8, 9, 10, 11, 12])]  # EDIT!
 # [(category1, [(game1_label, game1_id), ...]), (cateogry2, [(game1_label, game1_id), ...])]
 GAME_NAV = [(category[0], [(f"{Game.query.get(i).white_player.split(' ')[-1]}-"  # NOEDIT!
                           + f"{Game.query.get(i).black_player.split(' ')[-1]} "
@@ -35,16 +36,19 @@ def index():
 @app.route('/game_viewer_id=<id>')
 def game_viewer(id):
     # interacts with wikipedia api
-    id = int(id)
-    player_image_urls = {'White': get_wikipicture_url(Game.query.get(id).white_player),
-                         'Black': get_wikipicture_url(Game.query.get(id).black_player)}
+    game = Game.query.get(int(id))
+    player_image_urls = {'White': get_wikipicture_url(game.white_player),
+                         'Black': get_wikipicture_url(game.black_player)}
     return render_template('game_viewer.html',
-                           # game_path=os.path.join(SAVED_PGNS_PATH[3:], session['cgv_filename']),  # for html-files '/' is '/app'
-                           pgn_text=Game.query.get(id).pgn,
-                           game_id=id,
+                           pgn_text=game.pgn,
                            game_nav=GAME_NAV,
-                           opening=Game.query.get(id).opening.name,
-                           player_image_urls=player_image_urls)
+                           white_player=game.white_player,
+                           black_player=game.black_player,
+                           game_date=game.date.isoformat().replace('-', '/'),
+                           opening=game.opening.name,
+                           result=game.result,
+                           player_image_urls=player_image_urls,
+                           game_id=id)
 
 
 @app.route('/puzzles')

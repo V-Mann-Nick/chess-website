@@ -4,17 +4,36 @@ from io import StringIO
 from dateutil.parser import parse
 
 
+# Takes chess.pgn.Game object and a string from the opening table
+def opening_matches(game, opening):
+    num_moves = len(opening.split(' '))
+    opening = read_game(StringIO(opening))
+    for i, move in enumerate(game.mainline()):
+        if i + 1 == num_moves:
+            return opening.end().board().fen() == move.board().fen()
+
+
 def new_game(pgn_string):
     game = read_game(StringIO(pgn_string))
     white_player = game.headers.get('White')
     black_player = game.headers.get('Black')
     game_date = parse(game.headers.get('Date')).date() if game.headers.get('Date') else None
-    opening = Opening.query.filter_by(eco_code=game.headers.get('ECO')).first()
+    eco_matches = Opening.query.filter_by(eco_code=game.headers.get('ECO'))
+    # if ECO is ambigious it will explore the moves for a match
+    if eco_matches.count() > 1:
+        for eco_match in eco_matches:
+            if opening_matches(game, eco_match.moves):
+                opening_id = eco_match.id
+                break
+    elif eco_matches.count() == 1:
+        opening_id = eco_matches.first().id
+    else:
+        opening_id = None
     return Game(pgn=pgn_string,
                 white_player=white_player,
                 black_player=black_player,
                 date=game_date,
-                opening_id=opening.id)
+                opening_id=opening_id)
 
 
 class Game(db.Model):
@@ -23,6 +42,7 @@ class Game(db.Model):
     white_player = db.Column(db.String(64), index=True, unique=False)
     black_player = db.Column(db.String(64), index=True, unique=False)
     date = db.Column(db.Date(), index=True, unique=False)
+    result = db.Column(db.String(16), index=True, unique=False)
     opening_id = db.Column(db.Integer, db.ForeignKey('opening.id'))
 
     def __repr__(self):
