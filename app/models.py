@@ -4,13 +4,19 @@ from io import StringIO
 from dateutil.parser import parse
 
 
-# Takes chess.pgn.Game object and a string from the opening table
-def opening_matches(game, opening):
-    num_moves = len(opening.split(' '))
-    opening = read_game(StringIO(opening))
-    for i, move in enumerate(game.mainline()):
-        if i + 1 == num_moves:
-            return opening.end().board().fen() == move.board().fen()
+# takes a ches.pgn.game-object and a list of app.model.Opening-objects
+# returns the best match or None (app.model.Opening-object)
+def best_matching_opening(game, openings):
+    longest = (0, None)  # (move_count, Opening-object)
+    for opening in openings:
+        num_moves = len(opening.moves.split(' '))
+        if num_moves > longest[0]:
+            opening_pgn = read_game(StringIO(opening.moves))  # make chess.pgn.game-object
+            for i, move in enumerate(game.mainline()):
+                if i + 1 == num_moves:  # stop when at same move number
+                    if opening_pgn.end().board().fen() == move.board().fen():  # compare position
+                        longest = (num_moves, opening)
+    return longest[1]
 
 
 def new_game(pgn_string):
@@ -20,16 +26,14 @@ def new_game(pgn_string):
     result = game.headers.get('Result')
     game_date = parse(game.headers.get('Date')).date() if game.headers.get('Date') else None
     eco_matches = Opening.query.filter_by(eco_code=game.headers.get('ECO'))
-    # if ECO is ambigious it will explore the moves for a match
-    if eco_matches.count() > 1:
-        for eco_match in eco_matches:
-            if opening_matches(game, eco_match.moves):
-                opening_id = eco_match.id
-                break
+    if eco_matches.count() > 1:  # if ECO is ambigious it will explore the moves for a match
+        best_match = best_matching_opening(game, eco_matches)
+        opening_id = best_match.id if best_match else None
     elif eco_matches.count() == 1:
         opening_id = eco_matches.first().id
-    else:
-        opening_id = None
+    else:  # if pgn has no ECO
+        best_match = best_matching_opening(game, Opening.query.all())
+        opening_id = best_match.id if best_match else None
     return Game(pgn=pgn_string,
                 white_player=white_player,
                 black_player=black_player,
