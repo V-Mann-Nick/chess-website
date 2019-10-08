@@ -34,7 +34,7 @@ nav {
 /* only select menuItems which are direct child of MainMenu, so now submenu items */
 #MainMenu>.menuItem {
     position: relative;
-    width: calc(90%/3); /* 10% for HomeButton 90% for the other 3 */
+    width: calc(90%/2); /* 10% for HomeButton 90% for the other 3 */
 }
 
 /* is mainly styled by .button (css/2-base/global.css) class. */
