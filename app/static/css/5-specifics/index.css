@@ -2,13 +2,84 @@
 /*----THIS DOCUMENT CONTAINS STYLES FOR index.html-------*/
 /*********************************************************/
 
-#teaser {
-    padding: 3.5vw;
-    font-size: 2em;
-    text-align: center;
-    line-height: 1.5;
+main {
+    display: flex;
 }
 
-p {
-    margin: 0.9em 0;
+#pppPreview, #GamePreviews {
+    width: 50%;
+}
+
+#pppPreview, #pppPreview figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#pppPreview p {
+    text-align: center;
+}
+
+#pppPreview figure figcaption {
+    max-height: 20%;
+}
+
+#pppPreview figure img {
+    max-height: 80%;
+    max-width: 95%;
+}
+
+#pppPreview a {
+    width: 80%
+}
+
+#GamePreviews {
+    display: flex;
+    flex-direction: column
+}
+
+.gamePreview {
+    display: grid;
+    grid-template-rows: auto 9fr 1fr;
+    grid-template-columns: 50% 50%;
+    grid-template-areas:
+            "heading heading"
+            "white black"
+            "button button";
+    align-items: center;
+}
+
+.gamePreview h3 {
+    grid-area: heading;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.PWhite {
+    grid-area: white;
+}
+
+.PBlack {
+    grid-area: black;
+}
+
+.PWhite, .PBlack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+}
+
+.PWhite img, .PBlack img {
+    max-height: 80%;
+    max-width: 100%;
+}
+
+.PWhite figcaption, .PBlack figcaption {
+    height 20%;
+}
+
+.gamePreview a {
+    grid-area: button;
+    padding: 0;
 }

@@ -1,6 +1,11 @@
 {% extends "layout.html" %}
 
 
+{% block css_imports %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
+
 <!-- submenu points for "noteworthy games" is generated dynamically in routes.py. It creates a menu point -->
 <!-- for every pgn found in /static/game_viewer_pgns -->
 {% block game_navigation %}
@@ -20,4 +25,56 @@
         </li>
         {% endfor %}
     </ul>
+{% endblock %}
+
+
+{% block content %}
+    <div id="pppPreview">
+        <h3><u>PGN Pretty Print Tool</u></h3>
+        <p class="regularText">This tool formats annotated chess games and provides formatting options.</p>
+        <figure>
+            <figcaption><h3>Example</h3></figcaption>
+            <img src="{{ url_for('static', filename='images/ppp_preview/ppp_preview.png') }}" alt="pretty print preview">
+        </figure>
+        <a href="{{ url_for('uploader', tool_target='pdf_printer') }}" class="button">
+            <i class="material-icons">print</i>Pretty Print Tool
+        </a>
+    </div>
+    <div id="GamePreviews">
+        <div class="gamePreview">
+            <h3>{{ game1['White'] }} - {{ game1['Black'] }}
+                ({{ game1['Date'] }}) [{{ game1['Result'] }}]<br>
+                {{ game1['Opening'] }}
+            </h3>
+            <figure class="PWhite">
+                <img src="{{ game1['WPic'] }}" alt="game 1 white player">
+                <figcaption>{{ game1['White'] }}</figcaption>
+            </figure>
+            <figure class="PBlack">
+                <img src="{{ game1['BPic'] }}" alt="game 1 black player">
+                <figcaption>{{ game1['Black'] }}</figcaption>
+            </figure>
+            <a href="{{ url_for('game_viewer', id=game1['id']) }}" class="button">
+                <i class="material-icons">pageview</i>view
+            </a>
+        </div>
+        <div class="gamePreview">
+            <h3>{{ game2['White'] }} - {{ game2['Black'] }}
+                ({{ game2['Date'] }}) [{{ game2['Result'] }}]<br>
+                {{ game2['Opening'] }}
+            </h3>
+            <figure class="PWhite">
+                <img src="{{ game2['WPic'] }}" alt="game 2 white player">
+                <figcaption>{{ game2['White'] }}</figcaption>
+            </figure>
+            <figure class="PBlack">
+                <img src="{{ game2['BPic'] }}" alt="game 2 black player">
+                <figcaption>{{ game2['Black'] }}</figcaption>
+            </figure>
+            <a href="{{ url_for('game_viewer', id=game2['id']) }}" class="button">
+                <i class="material-icons">pageview</i>view
+            </a>
+        </div>
+    </div>
+
 {% endblock %}

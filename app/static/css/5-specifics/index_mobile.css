@@ -1,0 +1,14 @@
+@media only screen and (max-width: 480px) {
+
+    main {
+        flex-direction: column-reverse;
+    }
+
+    #pppPreview, #GamePreviews {
+        width: 100%
+    }
+
+    .gamePreview:first-child {
+        display: none
+    }
+}

@@ -96,6 +96,9 @@ button, .button {
     font-weight: bold;
     text-decoration: none;
     font-size: 1.5vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 button:active, .button:active {

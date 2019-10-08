@@ -1,7 +1,7 @@
 from app import db
 from chess.pgn import read_game
 from io import StringIO
-from dateutil.parser import parse
+from datetime import datetime
 
 
 # takes a ches.pgn.game-object and a list of app.model.Opening-objects
@@ -19,12 +19,8 @@ def best_matching_opening(game, openings):
     return longest[1]
 
 
-def new_game(pgn_string):
+def new_game(pgn_string, is_from_user=True):
     game = read_game(StringIO(pgn_string))
-    white_player = game.headers.get('White')
-    black_player = game.headers.get('Black')
-    result = game.headers.get('Result')
-    game_date = parse(game.headers.get('Date')).date() if game.headers.get('Date') else None
     eco_matches = Opening.query.filter_by(eco_code=game.headers.get('ECO'))
     if eco_matches.count() > 1:  # if ECO is ambigious it will explore the moves for a match
         best_match = best_matching_opening(game, eco_matches)
@@ -35,10 +31,11 @@ def new_game(pgn_string):
         best_match = best_matching_opening(game, Opening.query.all())
         opening_id = best_match.id if best_match else None
     return Game(pgn=pgn_string,
-                white_player=white_player,
-                black_player=black_player,
-                result=result,
-                date=game_date,
+                white_player=game.headers.get('White'),
+                black_player=game.headers.get('Black'),
+                result=game.headers.get('Result'),
+                is_from_user=is_from_user,
+                date=game.headers.get('Date').replace('-', '/').replace('.', '/'),
                 opening_id=opening_id)
 
 
@@ -47,8 +44,10 @@ class Game(db.Model):
     pgn = db.Column(db.String(), index=True, unique=True)
     white_player = db.Column(db.String(64), index=True, unique=False)
     black_player = db.Column(db.String(64), index=True, unique=False)
-    date = db.Column(db.Date(), index=True, unique=False)
+    date = db.Column(db.String(16), index=True, unique=False)
     result = db.Column(db.String(16), index=True, unique=False)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    is_from_user = db.Column(db.Boolean)
     opening_id = db.Column(db.Integer, db.ForeignKey('opening.id'))
 
     def __repr__(self):
