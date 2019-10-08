@@ -49,14 +49,16 @@
                 ({{ game1['Date'] }}) [{{ game1['Result'] }}]<br>
                 {{ game1['Opening'] }}
             </h4>
-            <figure class="PWhite">
-                <img src="{{ game1['WPic'] }}" alt="game 1 white player">
-                <figcaption>{{ game1['White'] }}</figcaption>
-            </figure>
-            <figure class="PBlack">
-                <img src="{{ game1['BPic'] }}" alt="game 1 black player">
-                <figcaption>{{ game1['Black'] }}</figcaption>
-            </figure>
+            <div class="playerPictures">
+                <figure class="PWhite">
+                    <img src="{{ game1['WPic'] }}" alt="game 1 white player">
+                    <figcaption>{{ game1['White'] }}</figcaption>
+                </figure>
+                <figure class="PBlack">
+                    <img src="{{ game1['BPic'] }}" alt="game 1 black player">
+                    <figcaption>{{ game1['Black'] }}</figcaption>
+                </figure>
+            </div>
             <a href="{{ url_for('game_viewer', id=game1['id']) }}" class="button">
                 <i class="material-icons">pageview</i>view
             </a>
@@ -66,14 +68,16 @@
                 ({{ game2['Date'] }}) [{{ game2['Result'] }}]<br>
                 {{ game2['Opening'] }}
             </h4>
-            <figure class="PWhite">
-                <img src="{{ game2['WPic'] }}" alt="game 2 white player">
-                <figcaption>{{ game2['White'] }}</figcaption>
-            </figure>
-            <figure class="PBlack">
-                <img src="{{ game2['BPic'] }}" alt="game 2 black player">
-                <figcaption>{{ game2['Black'] }}</figcaption>
-            </figure>
+            <div class="playerPictures">
+                <figure class="PWhite">
+                    <img src="{{ game2['WPic'] }}" alt="game 2 white player">
+                    <figcaption>{{ game2['White'] }}</figcaption>
+                </figure>
+                <figure class="PBlack">
+                    <img src="{{ game2['BPic'] }}" alt="game 2 black player">
+                    <figcaption>{{ game2['Black'] }}</figcaption>
+                </figure>
+            </div>
             <a href="{{ url_for('game_viewer', id=game2['id']) }}" class="button">
                 <i class="material-icons">pageview</i>view
             </a>
