@@ -15,6 +15,7 @@ requests = "*"
 flask-sqlalchemy = "*"
 flask-migrate = "*"
 flask-shell-ipython = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.7"
