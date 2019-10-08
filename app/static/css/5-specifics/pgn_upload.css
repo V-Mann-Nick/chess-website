@@ -50,6 +50,6 @@ figure figcaption {
     height: 40vh;
 }
 
-#UploadError {
+.uploadError {
     color: red;
 }

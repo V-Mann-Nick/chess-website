@@ -53,8 +53,11 @@
         {{ form.pgn_text }}
         {{ form.upload }}
         {% if error %}
-        <p id="UploadError" class="regularText">Provide pgn as text <u>or</u> file!</p>
+        <p class="uploadError regularText">Provide pgn as text <u>or</u> file!</p>
         {% endif %}
+        {% for err in form.upload.errors %}
+        <p class="uploadError regularText">[{{ err }}]</p>
+        {% endfor %}
         <p id="submit">{{ form.submit(class_="button") }}</p>
     </form>
 {% endblock %}

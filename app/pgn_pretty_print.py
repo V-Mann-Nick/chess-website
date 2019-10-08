@@ -184,9 +184,9 @@ class GamePrinter:
         paragraph = '<font size={}><strong>{}<i>{}</i><br/> vs.<br/>{}<i>{}</i></strong></font><br/>'.format(
             self.font_size + 2,
             self.game.headers.get('White'),
-            ' [{}]'.format(self.game.headers.get('WhiteElo')) if self.game.headers.get('WhiteElo') else '',
+            ' [{}]'.format(self.game.headers.get('WhiteElo')) if self.game.headers.get('WhiteElo') and self.game.headers.get('WhiteElo') != '?' else '',
             self.game.headers.get('Black'),
-            ' [{}]'.format(self.game.headers.get('BlackElo')) if self.game.headers.get('BlackElo') else '')
+            ' [{}]'.format(self.game.headers.get('BlackElo')) if self.game.headers.get('BlackElo') and self.game.headers.get('BlackElo') != '?' else '')
         for key in self.game.headers.keys():
             if key != 'White' and key != 'Black' and key != 'WhiteElo' and key != 'BlackElo' and self.game.headers.get(key) != '?':
                 paragraph += '<br/>{}: {}'.format(key, self.game.headers.get(key))
