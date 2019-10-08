@@ -31,7 +31,7 @@
 {% block content %}
     <div id="pppPreview">
         <h3><u>PGN Pretty Print Tool</u></h3>
-        <p class="regularText">This tool formats annotated chess games and provides formatting options.</p>
+        <p class="regularText">This tool provides formatting options for annotated chess games.</p>
         <figure>
             <figcaption><h3>Example</h3></figcaption>
             <img src="{{ url_for('static', filename='images/ppp_preview/ppp_preview.png') }}" alt="pretty print preview">
@@ -41,11 +41,14 @@
         </a>
     </div>
     <div id="GamePreviews">
+        <h3><u>Noteworthy Game Database</u></h3>
+        <p class="regularText">This site provides my personal selection of games to view.</p>
+        <h3>Examples</h3>
         <div class="gamePreview">
-            <h3>{{ game1['White'] }} - {{ game1['Black'] }}
+            <h4>{{ game1['White'] }} - {{ game1['Black'] }}
                 ({{ game1['Date'] }}) [{{ game1['Result'] }}]<br>
                 {{ game1['Opening'] }}
-            </h3>
+            </h4>
             <figure class="PWhite">
                 <img src="{{ game1['WPic'] }}" alt="game 1 white player">
                 <figcaption>{{ game1['White'] }}</figcaption>
@@ -59,10 +62,10 @@
             </a>
         </div>
         <div class="gamePreview">
-            <h3>{{ game2['White'] }} - {{ game2['Black'] }}
+            <h4>{{ game2['White'] }} - {{ game2['Black'] }}
                 ({{ game2['Date'] }}) [{{ game2['Result'] }}]<br>
                 {{ game2['Opening'] }}
-            </h3>
+            </h4>
             <figure class="PWhite">
                 <img src="{{ game2['WPic'] }}" alt="game 2 white player">
                 <figcaption>{{ game2['White'] }}</figcaption>

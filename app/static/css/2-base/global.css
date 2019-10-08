@@ -27,6 +27,14 @@ h3 {
     margin: 0.5em 0;
 }
 
+h4 {
+    font-size: 2vw;
+    font-family: 'Lato';
+    font-style: italic;
+    font-weight: normal;
+    margin: 0.5em 0;
+}
+
 p {
     margin: 0.5em 0;
 }
@@ -127,6 +135,10 @@ exceded font-size will stop getting biger */
         font-size: 27.5px;
     }
 
+    h4 {
+        font-size: 22px;
+    }
+
     figcaption {
         font-size: 16.5px;
     }
@@ -161,6 +173,10 @@ exceded font-size will stop getting biger */
 
     h3 {
         font-size: 18.75px;
+    }
+
+    h4 {
+        font-size: 15px;
     }
 
     figcaption {

@@ -29,27 +29,33 @@ main {
     max-width: 95%;
 }
 
-#pppPreview a {
+#pppPreview .button {
     width: 80%
 }
 
 #GamePreviews {
-    display: flex;
-    flex-direction: column
+    display: grid;
+    grid-template-rows: auto auto auto auto auto;
+    justify-items: center;
 }
+
+/* #GamePreviews h4 { */
+/*     text-align: center; */
+/* } */
 
 .gamePreview {
     display: grid;
-    grid-template-rows: auto 9fr 1fr;
+    grid-template-rows: auto auto 5%;
     grid-template-columns: 50% 50%;
     grid-template-areas:
             "heading heading"
             "white black"
             "button button";
     align-items: center;
+    justify-items: center;
 }
 
-.gamePreview h3 {
+.gamePreview h4 {
     grid-area: heading;
     padding-bottom: 10px;
     text-align: center;
@@ -79,7 +85,8 @@ main {
     height 20%;
 }
 
-.gamePreview a {
+.gamePreview .button {
     grid-area: button;
     padding: 0;
+    width: 100%;
 }

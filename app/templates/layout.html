@@ -102,17 +102,12 @@ setupColorThief(null, headerOp, navFootOp, mainOp) -->
                     {% block game_navigation %}{% endblock %}
                 </li>
                 <li class="menuItem">
-                    <a href="#" class="button navButton">tools</a>
-                    <ul class="submenu">
-                        <li class="menuItem">
-                            <a  href="{{ url_for('uploader', tool_target='pdf_printer') }}"
-                                class="button navButton">pdf printer</a>
-                        </li>
-                        <li class="menuItem">
-                            <a  href="{{ url_for('uploader', tool_target='game_viewer') }}"
-                                class="button navButton">custom pgn</a>
-                        </li>
-                    </ul>
+                    <a  href="{{ url_for('uploader', tool_target='pdf_printer') }}"
+                        class="button navButton">pgn pretty print</a>
+                </li>
+                <li class="menuItem">
+                    <a  href="{{ url_for('uploader', tool_target='game_viewer') }}"
+                        class="button navButton">game viewer</a>
                 </li>
             </ul>
         </nav>

@@ -7,8 +7,4 @@
     #pppPreview, #GamePreviews {
         width: 100%
     }
-
-    .gamePreview:first-child {
-        display: none
-    }
 }
