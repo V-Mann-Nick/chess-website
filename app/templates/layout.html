@@ -34,12 +34,14 @@
 setupColorThief(null, headerOp, navFootOp, mainOp) -->
 <body onload="
     setupEventListener();
-    if(checkCookie('background')){
-      changeMainBackground(Number(getCookie('background')));
+    if(checkCookie('background')) {
+        bgNumber = Number(getCookie('background'));
+        changeMainBackground(bgNumber);
+        setupColorThief(bgNumber, 0.9, 1, 0.9);
     } else {
-      changeMainBackground(0);
-    }
-    setupColorThief(0, 0.9, 1, 0.9);">
+        changeMainBackground(0);
+        setupColorThief(0, 0.9, 1, 0.9);
+    }">
     <div id="PageBox">
 
 <!---------------------------------------------------------------------------------------->
