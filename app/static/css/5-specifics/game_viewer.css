@@ -106,10 +106,10 @@ main {
 
 #gvOptions {
     display: flex;
-    margin: 1.5vw auto;
+    margin: 10px auto;
     order: 100; /* to put it at the end */
 }
 
-#gvOptions a {
-    margin: 1vw;
+#gvOptions .button {
+    margin: 10px;
 }

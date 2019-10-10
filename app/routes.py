@@ -15,8 +15,6 @@ import random
 # - think about error handling
 # - more comments
 
-SAVED_PGNS_PATH = 'app/static/pgns/'
-PGNS_PATH = 'app/static/game_viewer_pgns/'
 # notworthy navigation games will be generated
 # [(category, [id1, id2, id3, ...]), ...]
 GAME_NAV = [('Bobby Fischer', [1, 2, 3, 4, 5, 6]),
@@ -59,6 +57,7 @@ def game_viewer(id):
     game = Game.query.get(int(id))
     player_image_urls = {'White': get_wikipicture_url(game.white_player),
                          'Black': get_wikipicture_url(game.black_player)}
+    pgn_b64 = b64encode(game.pgn.encode('utf-8')).decode('utf-8')
     return render_template('game_viewer.html',
                            pgn_text=game.pgn,
                            game_nav=GAME_NAV,
@@ -68,6 +67,9 @@ def game_viewer(id):
                            opening=game.opening.name,
                            result=game.result,
                            player_image_urls=player_image_urls,
+                           pgn_b64=pgn_b64,
+                           pgn_filename='{}_{}.pgn'.format(game.white_player.split(' ')[-1],
+                                                           game.black_player.split(' ')[-1]),
                            game_id=id)
 
 
@@ -134,6 +136,7 @@ def chess_print_ui(id):
         pdf = printer.build_and_return_document().getvalue()
         form.halfmoves.choices = [(i, move.san()) for i, move in enumerate(printer.game.mainline())]
     else:
+        import pdb; pdb.set_trace()  # XXX BREAKPOINT
         printer = GamePrinter(game.pgn)
         pdf = printer.build_and_return_document().getvalue()
         form.halfmoves.choices = [(i, move.san()) for i, move in enumerate(printer.game.mainline())]

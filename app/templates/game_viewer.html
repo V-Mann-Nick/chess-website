@@ -7,6 +7,7 @@
 
 
 {% block js_imports %}
+    <script src="{{ url_for('static', filename='js/download.js') }}"></script>
     <script src="{{ url_for('static', filename='js/pgn4web/pgn4web.js') }}"></script>
     <script src="{{ url_for('static', filename='js/configPieceImg.js') }}"></script>
     <script src="{{ url_for('static', filename='js/configGameViewer.js') }}"></script>
@@ -115,9 +116,10 @@
     <div id="GameText" class="gameText regularText"></div> <!-- populated by pgn4web.js -->
     <break></break> <!-- To make flexbox break -->
     <div id="gvOptions">
-        <a  download href="{{ game_path }}" class="button">
-            <i class="material-icons">archive</i>Download PGN
-        </a>
+        <button type="button" class="button"
+                onClick="download('data:text/pgn;base64,{{ pgn_b64 }}', '{{ pgn_filename }}', 'text/pgn')">
+            <i class="material-icons">archive</i>Download
+        </button>
         <a href="{{ url_for('chess_print_ui', id=game_id) }}" class="button">
             <i class="material-icons">print</i>Pretty Print
         </a>
