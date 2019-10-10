@@ -65,7 +65,7 @@ class Options(FlaskForm):
     color_custom_dark = StringField('dark-tile color',
                                     validators=[Optional(), Regexp('^#[\w\d]{6}$', message='Please give a hex-coded color')])
     paragraph_arrangement = NoValidationRadioField('paragraph arrangement',
-                                                   choices=[('move-board-comment', 'move-board-comment'),
+                                                   choices=[('move-board-comment', 'move-board-comment (default)'),
                                                             ('board-move-comment', 'board-move-comment'),
                                                             ('move-comment-board', 'move-comment-board')],
                                                    validators=[Optional()])

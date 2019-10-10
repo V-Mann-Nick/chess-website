@@ -29,7 +29,7 @@ class GamePrinter:
                  output_path='',
                  filename='',
                  # 3 options: 'board-move-comment', 'move-board-comment', 'move-comment-board'
-                 elements_arrange='board-move-comment',
+                 elements_arrange='move-board-comment',
                  halfmoves_to_be_printed=list(),
                  dark_tile_color='#7C7671',
                  light_tile_color='#DCD7BC',
