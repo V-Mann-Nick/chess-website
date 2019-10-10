@@ -64,6 +64,11 @@ class Options(FlaskForm):
                                      validators=[Optional(), Regexp('^#[\w\d]{6}$', message='Please give a hex-coded color')])
     color_custom_dark = StringField('dark-tile color',
                                     validators=[Optional(), Regexp('^#[\w\d]{6}$', message='Please give a hex-coded color')])
+    paragraph_arrangement = NoValidationRadioField('paragraph arrangement',
+                                                   choices=[('move-board-comment', 'move-board-comment'),
+                                                            ('board-move-comment', 'board-move-comment'),
+                                                            ('move-comment-board', 'move-comment-board')],
+                                                   validators=[Optional()])
     font_size = IntegerField('font size', validators=[Optional(), NumberRange(min=6, max=30)])
     font_name = NoValidationSelectField('font', choices=[('Helvetica', 'Helvetica'),
                                                          ('Courier', 'Courier'),

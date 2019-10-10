@@ -127,6 +127,8 @@ def chess_print_ui(id):
             light_tile_color, dark_tile_color = form.color.data.split('/')
             printer.light_tile_color = light_tile_color
             printer.dark_tile_color = dark_tile_color
+        if form.paragraph_arrangement.data != 'None':
+            printer.elements_arrange = form.paragraph_arrangement.data
         if form.page_margin.data:
             printer.page_margin = form.page_margin.data
         if form.font_size.data:

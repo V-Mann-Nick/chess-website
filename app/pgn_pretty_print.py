@@ -28,6 +28,8 @@ class GamePrinter:
                  pgn,
                  output_path='',
                  filename='',
+                 # 3 options: 'board-move-comment', 'move-board-comment', 'move-comment-board'
+                 elements_arrange='board-move-comment',
                  halfmoves_to_be_printed=list(),
                  dark_tile_color='#7C7671',
                  light_tile_color='#DCD7BC',
@@ -45,6 +47,12 @@ class GamePrinter:
         self.output_path = output_path
         self.filename = filename if filename else '{} - {}.pdf'.format(self.game.headers.get('White'),
                                                                        self.game.headers.get('Black'))
+        if any([elements_arrange == option for option in ['board-move-comment',
+                                                          'move-board-comment',
+                                                          'move-comment-board']]):
+            self.elements_arrange = elements_arrange
+        else:
+            elements_arrange= 'board-move-comment'
         self.halfmoves_to_be_printed = halfmoves_to_be_printed
         self.dark_tile_color = dark_tile_color
         self.light_tile_color = light_tile_color
@@ -146,8 +154,8 @@ class GamePrinter:
         # examples: '1. e4', 'c5'
         move_number = int((halfmove + 2) / 2)
         white_to_move = halfmove % 2 is 0
-        # Force print of move number for a black move
-        text = '<strong>{}{}</strong>{}'.format('{}. '.format(move_number) if white_to_move else '',
+        # if 'move-board-comment' option is selected <!#!#!> is a indicator for break
+        text = '<strong>{}{}</strong><!#!#!>{}'.format('{}. '.format(move_number) if white_to_move else '',
                                                 move.san(),
                                                 ' {}'.format(move.comment) if move.comment else '')
         # If game has variations at this point they will be printed including comments.
@@ -194,15 +202,31 @@ class GamePrinter:
         # Generate paragraphs with move text and board diagramms
         paragraph = str()
         for i, move in enumerate(self.game.mainline()):
-            if move.comment and '<*>' in move.comment or any([i == halfmove for halfmove in self.halfmoves_to_be_printed]):
-                elements.append(Paragraph(paragraph, self.styles['Move_Text']))
-                elements.append(KeepTogether(self.board_from_FEN(move.board().fen())))
-                paragraph = str()
-            # After print of a board diagramm if it's black's move print move number
-            if any([i == halfmove for halfmove in self.halfmoves_to_be_printed]) and i % 2 == 1:
-                paragraph += '<strong>{}...</strong> {} '.format(int((i + 2) / 2), self.print_move_and_variations(move, i).replace('<*>', '').strip())
-            else:
-                paragraph += self.print_move_and_variations(move, i).replace('<*>', '').strip() + ' '
+            if self.elements_arrange == 'board-move-comment':
+                if any([i == halfmove for halfmove in self.halfmoves_to_be_printed]):
+                    elements.append(Paragraph(paragraph, self.styles['Move_Text']))
+                    elements.append(KeepTogether(self.board_from_FEN(move.board().fen())))
+                    paragraph = str()
+                # After print of a board diagramm if it's black's move print move number
+                if any([i == halfmove for halfmove in self.halfmoves_to_be_printed]) and i % 2 == 1:
+                    paragraph += '<strong>{}...</strong> {} '.format(int((i + 2) / 2), self.print_move_and_variations(move, i).replace('<!#!#!>', '').strip())
+                else:
+                    paragraph += self.print_move_and_variations(move, i).replace('<!#!#!>', '').strip() + ' '
+            elif self.elements_arrange == 'move-board-comment':
+                tmp_paragraph = self.print_move_and_variations(move, i).strip() + ' '
+                if any([i == halfmove for halfmove in self.halfmoves_to_be_printed]):
+                    paragraph += tmp_paragraph[:tmp_paragraph.find('<!#!#!>')]
+                    elements.append(Paragraph(paragraph, self.styles['Move_Text']))
+                    elements.append(KeepTogether(self.board_from_FEN(move.board().fen())))
+                    paragraph = tmp_paragraph[tmp_paragraph.find('<!#!#!>'):].replace('<!#!#!>', '')
+                else:
+                    paragraph += tmp_paragraph.replace('<!#!#!>', '')
+            else:  # == 'move-comment-board'
+                paragraph += self.print_move_and_variations(move, i).replace('<!#!#!>', '').strip() + ' '
+                if any([i == halfmove for halfmove in self.halfmoves_to_be_printed]):
+                    elements.append(Paragraph(paragraph, self.styles['Move_Text']))
+                    elements.append(KeepTogether(self.board_from_FEN(move.board().fen())))
+                    paragraph = str()
         elements.append(Paragraph(paragraph, self.styles['Move_Text']))
         self.doc.build(elements)
 

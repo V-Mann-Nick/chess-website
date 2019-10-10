@@ -54,9 +54,9 @@
             </div>
             <div id="PrintToolButtons" class="optionModule">
                 {{ form.submit(class_="button") }}
-                <button type="button"
+                <button type="button" class="button"
                         onClick="download('data:application/pdf;base64,{{ pdf_output }}', '{{ pdf_filename }}', 'application/pdf')">
-                    save
+                    <i class="material-icons">archive</i>save
                 </button>
             </div>
             <div class="optionModule">
@@ -65,69 +65,120 @@
                 {{ form.halfmoves }}
             </div>
             <div id="ColorSelector" class="optionModule">
-                <p class="regularText"><strong>Choose a dark/light color combination for the printed boards.
-                    Either choose a template or give your own colors in hex-format.</strong></p>
-                <div id="ColorOptions">
-                    <div id="ColorTemplates">
-                        {{ form.color.label(class_='regularText') }}
-                        {{ form.color }}
-                    </div>
-                    <div id="CustomColors">
-                        <div class="customColor">
-                            {{ form.color_custom_light.label(class_='regularText') }}
-                            {{ form.color_custom_light(size=5) }}
-                            {% for error in form.color_custom_light.errors %}
-                            <span class="errorText regularText">[{{ error }}]</span>
-                            {% endfor %}
+                <button type="button" class="button">
+                    <i class="material-icons">invert_colors</i>board colors
+                </button>
+                <div class="folder">
+                    <p class="regularText"><strong>Choose a dark/light color combination for the printed boards.
+                        Either choose a template or give your own colors in hex-format.</strong></p>
+                    <div id="ColorOptions">
+                        <div id="ColorTemplates">
+                            {{ form.color.label(class_='regularText') }}
+                            {{ form.color }}
                         </div>
-                        <div class="customColor">
-                            {{ form.color_custom_dark.label(class_='regularText') }}
-                            {{ form.color_custom_dark(size=5) }}
-                            {% for error in form.color_custom_dark.errors %}
-                            <span class="errorText regularText">[{{ error }}]</span>
-                            {% endfor %}
-                        </div>
-                    </div> <!-- end CustomColors -->
-                </div> <!-- end ColorOptions -->
+                        <div id="CustomColors">
+                            <div class="customColor">
+                                {{ form.color_custom_light.label(class_='regularText') }}
+                                {{ form.color_custom_light(size=5) }}
+                                {% for error in form.color_custom_light.errors %}
+                                <span class="errorText regularText">[{{ error }}]</span>
+                                {% endfor %}
+                            </div>
+                            <div class="customColor">
+                                {{ form.color_custom_dark.label(class_='regularText') }}
+                                {{ form.color_custom_dark(size=5) }}
+                                {% for error in form.color_custom_dark.errors %}
+                                <span class="errorText regularText">[{{ error }}]</span>
+                                {% endfor %}
+                            </div>
+                        </div> <!-- end CustomColors -->
+                    </div> <!-- end ColorOptions -->
+                </div> <!-- end folder -->
+                <script>
+                    document.addEventListener("click", function(event) {
+                        if(event.target.closest("#ColorSelector button")) {
+                            document.querySelector("#ColorSelector .folder").classList.toggle("visible");
+                        }
+                    });
+                </script>
             </div> <!-- end ColorSelector -->
+            <div id="paraArrange" class="optionModule">
+                <button type="button" class="button">
+                    <i class="material-icons">view_day</i>paragraph arrangement
+                </button>
+                <div class="folder">
+                    {{ form.paragraph_arrangement }}
+                </div>
+                <script>
+                    document.addEventListener("click", function(event) {
+                        if(event.target.closest("#paraArrange button")) {
+                            document.querySelector("#paraArrange .folder").classList.toggle("visible");
+                        }
+                    });
+                </script>
+            </div>
             <div id="PageSettings" class="optionModule">
-                <div id="page_margin" class="optionField">
-                    {{ form.page_margin.label(class_='regularText') }}<br>
-                    {{ form.page_margin(size=2) }}
-                    {% for error in form.page_margin.errors %}
-                    <span class="errorText regularText">[{{ error }}]</span>
-                    {% endfor %}
-                </div>
-                <div id="page_format" class="optionField">
-                    {{ form.page_format.label(class_='regularText') }}<br>
-                    {{ form.page_format }}
-                    {% for error in form.page_format.errors %}
-                    <span class="errorText regularText">[{{ error }}]</span>
-                    {% endfor %}
-                </div>
-                <div id="column_gap" class="optionField">
-                    {{ form.column_gap.label(class_='regularText') }}<br>
-                    {{ form.column_gap(size=2) }}
-                    {% for error in form.column_gap.errors %}
-                    <span class="errorText regularText">[{{ error }}]</span>
-                    {% endfor %}
-                </div>
+                <button type="button" class="button">
+                    <i class="material-icons">description </i>page &amp; layout
+                </button>
+                <div class="folder">
+                    <div id="page_format" class="optionField">
+                        {{ form.page_format.label(class_='regularText') }}<br>
+                        {{ form.page_format }}
+                        {% for error in form.page_format.errors %}
+                        <span class="errorText regularText">[{{ error }}]</span>
+                        {% endfor %}
+                    </div>
+                    <div id="page_margin" class="optionField">
+                        {{ form.page_margin.label(class_='regularText') }}<br>
+                        {{ form.page_margin(size=2) }}
+                        {% for error in form.page_margin.errors %}
+                        <span class="errorText regularText">[{{ error }}]</span>
+                        {% endfor %}
+                    </div>
+                    <div id="column_gap" class="optionField">
+                        {{ form.column_gap.label(class_='regularText') }}<br>
+                        {{ form.column_gap(size=2) }}
+                        {% for error in form.column_gap.errors %}
+                        <span class="errorText regularText">[{{ error }}]</span>
+                        {% endfor %}
+                    </div>
+                </div> <!-- end folder -->
+                <script>
+                    document.addEventListener("click", function(event) {
+                        if(event.target.closest("#PageSettings button")) {
+                            document.querySelector("#PageSettings .folder").classList.toggle("visible");
+                        }
+                    });
+                </script>
             </div> <!-- end PageSettings -->
             <div id="FontSettings" class="optionModule">
-                <div id="font_size" class="optionField">
-                    {{ form.font_size.label(class_='regularText') }}<br>
-                    {{ form.font_size(size=2) }}
-                    {% for error in form.font_size.errors %}
-                    <span class="errorText regularText">[{{ error }}]</span>
-                    {% endfor %}
-                </div>
-                <div id="font_name" class="optionField">
-                    {{ form.font_name.label(class_='regularText') }}<br>
-                    {{ form.font_name }}
-                    {% for error in form.font_name.errors %}
-                    <span class="errorText regularText">[{{ error }}]</span>
-                    {% endfor %}
-                </div>
+                <button type="button" class="button">
+                    <i class="material-icons">text_format</i>font
+                </button>
+                <div class="folder">
+                    <div id="font_size" class="optionField">
+                        {{ form.font_size.label(class_='regularText') }}<br>
+                        {{ form.font_size(size=2) }}
+                        {% for error in form.font_size.errors %}
+                        <span class="errorText regularText">[{{ error }}]</span>
+                        {% endfor %}
+                    </div>
+                    <div id="font_name" class="optionField">
+                        {{ form.font_name.label(class_='regularText') }}<br>
+                        {{ form.font_name }}
+                        {% for error in form.font_name.errors %}
+                        <span class="errorText regularText">[{{ error }}]</span>
+                        {% endfor %}
+                    </div>
+                </div> <!-- end folder -->
+                <script>
+                    document.addEventListener("click", function(event) {
+                        if(event.target.closest("#FontSettings button")) {
+                            document.querySelector("#FontSettings .folder").classList.toggle("visible");
+                        }
+                    });
+                </script>
             </div> <!-- end FontSettings -->
         </form>
         <!-- <iframe id="pdf_preview" src="data:application/pdf;base64,{{ pdf_output }}" type="application/pdf"></iframe> -->

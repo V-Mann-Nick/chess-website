@@ -18,10 +18,18 @@
     width: 48%;
 }
 
+#PrintToolButtons .button {
+    width: 50%;
+}
+
 .optionModule {
-    border-style: solid;
-    border-width: 1px;
+    /* border-style: solid; */
+    /* border-width: 1px; */
     padding: 3px 3px 3px 3px;
+    width: 100%;
+}
+
+.optionModule .button {
     width: 100%;
 }
 
@@ -36,7 +44,7 @@
 }
 
 #halfmoves {
-    height: 30vh;
+    max-height: 30vh;
     width: 100%;
     border: 1px solid;
     overflow: auto;
@@ -45,6 +53,17 @@
 
 #halfmoves li {
     display: inline;
+}
+
+.folder {
+    transition: max-height 300ms ease-in;
+    -webkit-transition: max-height 300ms ease-in;
+    max-height: 0;
+    overflow: hidden;
+}
+
+.folder.visible {
+    max-height: 1000px;
 }
 
 #ColorOptions {
@@ -64,13 +83,17 @@
     flex-direction: column;
 }
 
-#PageSettings {
+#paraArrange .folder {
+    text-align: center;
+}
+
+#PageSettings .folder {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
 }
 
-#FontSettings {
+#FontSettings .folder {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
