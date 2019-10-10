@@ -1,1 +1,1 @@
-NOT README
+https://www.gambitaccepted.com
