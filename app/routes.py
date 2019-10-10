@@ -136,7 +136,6 @@ def chess_print_ui(id):
         pdf = printer.build_and_return_document().getvalue()
         form.halfmoves.choices = [(i, move.san()) for i, move in enumerate(printer.game.mainline())]
     else:
-        import pdb; pdb.set_trace()  # XXX BREAKPOINT
         printer = GamePrinter(game.pgn)
         pdf = printer.build_and_return_document().getvalue()
         form.halfmoves.choices = [(i, move.san()) for i, move in enumerate(printer.game.mainline())]
